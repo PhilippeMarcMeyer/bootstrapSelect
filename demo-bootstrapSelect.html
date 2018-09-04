@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>P5js</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    <!-- external css -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,500">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	
+    <!-- internal css -->
+	<style>
+	
+	 body{
+		font-family: "Roboto,Helvetica Neue",Helvetica,Arial,sans-serif; 
+	 }
+	 #container{
+		 padding-top: 30px;
+		 padding-left:50px;
+		 width:90%;
+	 }
+
+	 
+	h5 {
+		color: #2e44b9;
+		font-weight: bold;
+		font-size: 24px;;
+	}
+	
+	.bs-select li{
+		font-size : 14px;
+		background-color : #fff;
+		padding-left: 8px;
+	}
+
+	.bs-select .title{
+		margin-right:6px;
+	}
+
+	.bs-select .title{
+		margin-right:6px;
+	}
+
+	.bs-select li:nth-child(even){
+		background-color : #fafafd;
+	}
+	
+	.bs-select li:hover{
+		background-color : lightgrey;
+	}
+
+	
+	.bs-select .btn-default {
+		color: inherit;
+		background: white !important;
+		border: 1px solid #e7eaec !important;
+	}
+	
+	.bs-select button {
+		min-width : 120px;
+	}
+	
+	</style>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <div class="btn-group" style="margin-top: 8px;margin-right:10px;">
+                </div>
+                <a class="navbar-brand" href="#">
+					Experiments with jquery
+                </a>
+            </div>
+            <ul class="nav navbar-nav">
+				<li id="bootstrapSelect" class="active"><a href="#bootstrapSelect">BootstrapSelect</a></li>
+                <li id="blog"><a href="https://philippemarcmeyer.github.io#jquery">Github Blog</a></li>
+                <li id="repos"><a href="https://github.com/PhilippeMarcMeyer/bootstrapSelect">Github repos</a></li>
+            </ul>
+        </div>
+    </nav>
+  <div id="container">
+  
+	  
+ <div id="bootstrapSelectZone" style="max-width:600px;width:600px;" >
+	  <h5 style="display:inline-block">bootstrapSelect</h5>&nbsp;v0.1
+	  <p>Transform an HTML select into a bootstrap dropdown</p>
+	  <p>the select is hidden and the value is still available in it</p>
+	  <p>In this demo i use a select with values + an attribute data-color to put color in the bootstrap dropdown</p>
+	  <hr/>	
+	  <b>What do you want to do :</b><br />
+	  <select id="choice">
+		  <option data-color="black" value=""></option>
+		  <option data-color="blue" value="swimming">Swimming</option>
+		  <option data-color="red" value="dancing">Dancing</option>
+		  <option data-color="orange" value="coding">Coding</option>
+		  <option data-color="green" value="dancing">Napping</option>
+		  <option data-color="mauve" value="nothing">Nothing</option>
+		  <option data-color="#28905F" value="parting">Parting</option>
+		  <option data-color="orangered" value="holidaying">Holidaying</option>
+	  </select>
+	
+		<button type="button" style="float:right;" id="btnGo" class="btn btn-sm btn-primary">bootstrapSelect it!</button>
+		<hr />
+		<b>Result in select :</b>&nbsp;<span id="result"></span>
+		
+  </div>
+  
+  
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+      <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+	  <script src="./demo-bootstrapSelect.js"></script>
+	  
+	<script>  
+		$( document ).ready(function() {
+			$("#btnGo").on("click",function(){
+				$("#choice").bootstrapSelect("init", { "colors": "on" ,"className":"bs-select"});
+			});
+			
+			$("#choice").on("change",function(){
+				$("#result").html($(this).val());
+			});	
+				
+		});
+	 </script>  
+</html>
