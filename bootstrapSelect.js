@@ -1,7 +1,7 @@
 /* 
  Copyright (C) Philippe Meyer 2018
  Distributed under the MIT License
- bootstrapSelect v 0.1
+ bootstrapSelect v 0.5
 */
 
 (function ($) {
@@ -9,6 +9,7 @@
     var colors = "off";
     var width = 120;
     var className = "none";
+    var maxWidth = 500;
 
     $.fn.bootstrapSelect = function (action, options) {
         if (action == "init") {
@@ -21,14 +22,17 @@
                 className = options.className;
             }
 
+            if (options.maxWidth) {
+                maxWidth = options.maxWidth;
+            }
+
             var that = this;
             $(this).css("display", "none");
 
             var id = $(this).attr("id");
             var $drop = $("<div></div>");
             $(this).after($drop);
-
-            var w = $(this).width();
+			
             var $already = $("#btn-group-" + id);
             if ($already.length > 0) {
                 $already.remove();
@@ -47,7 +51,7 @@
 				.attr("data-toggle", "dropdown")
 				.attr("aria-haspopup", "true")
 				.attr("aria-expanded", "false")
-                .css({ "width":"100%", "text-align": "left" });
+                .css({"width":"100%", "text-align": "left","z-index":100 });
 
             var $title = $("<span></span>");
             $title
@@ -58,15 +62,14 @@
             $caret
 				.appendTo($button)
 				.addClass("caret")
-                .css({ "float": "right","margin-top":"8px" });
+                .css({ "position": "absolute", "right": "8px", "margin-top": "8px" });
 
             var $ul = $("<ul></ul>");
             $ul
 				.appendTo($drop)
 				.addClass("dropdown-menu")
-                .css({ "width": w + "px","cursor":"pointer" });
-
-
+                .css({ "cursor":"pointer" });
+				
             $(that).find("option").each(function (i) {
                 var color = "black";
                 if (colors == "on") {
@@ -98,10 +101,8 @@
                 $(that).trigger("change");
                 $($title).text(text);
                 $($title).css("color", color);
-
             });
 
- 
             return (that);
         }
         else {
