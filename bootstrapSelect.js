@@ -51,7 +51,7 @@
 				.attr("data-toggle", "dropdown")
 				.attr("aria-haspopup", "true")
 				.attr("aria-expanded", "false")
-                .css({"width":"100%", "text-align": "left","z-index":100 });
+                .css({"width":"100%", "text-align": "left","z-index":1 });
 
             var $title = $("<span></span>");
             $title
