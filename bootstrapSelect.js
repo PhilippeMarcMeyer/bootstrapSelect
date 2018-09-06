@@ -1,7 +1,7 @@
 /* 
  Copyright (C) Philippe Meyer 2018
  Distributed under the MIT License
- bootstrapSelect v 0.5
+ bootstrapSelect v 0.6
 */
 
 (function ($) {
@@ -10,6 +10,7 @@
     var width = 120;
     var className = "none";
     var maxWidth = 500;
+    var $title = null;
 
     $.fn.bootstrapSelect = function (action, options) {
         if (action == "init") {
@@ -32,7 +33,7 @@
             var id = $(this).attr("id");
             var $drop = $("<div></div>");
             $(this).after($drop);
-			
+
             var $already = $("#btn-group-" + id);
             if ($already.length > 0) {
                 $already.remove();
@@ -51,7 +52,7 @@
 				.attr("data-toggle", "dropdown")
 				.attr("aria-haspopup", "true")
 				.attr("aria-expanded", "false")
-                .css({"width":"100%", "text-align": "left","z-index":1 });
+                .css({ "width": "100%", "text-align": "left", "z-index": 1 });
 
             var $title = $("<span></span>");
             $title
@@ -68,8 +69,8 @@
             $ul
 				.appendTo($drop)
 				.addClass("dropdown-menu")
-                .css({ "cursor":"pointer" });
-				
+                .css({ "cursor": "pointer" });
+
             $(that).find("option").each(function (i) {
                 var color = "black";
                 if (colors == "on") {
@@ -103,6 +104,28 @@
                 $($title).css("color", color);
             });
 
+            return (that);
+        }
+        else if (action == "setValue") {
+            var that = this;
+            if (options!=undefined) {
+                var value = options;
+                if (typeof value == "string" || typeof value == "number") {
+                    var targetId = "#btn-group-" + $(this).attr("id");
+                    var $li = $(targetId).find("li[data-value='" + value + "']");
+                    if ($li.length == 1) {
+                        var text = $li.data("text");
+                        var color = $li.css("color") || "black";
+                        $(that).val(value);
+                        $(that).trigger("change");
+                        $title = $(targetId).find(".title");
+                        $($title).text(text);
+                        $($title).css("color", color);
+                    }
+                } else {
+                    console.log("setValue parameter should be either a string or a number");
+                }
+            }
             return (that);
         }
         else {
