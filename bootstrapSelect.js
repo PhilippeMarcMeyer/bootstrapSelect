@@ -1,7 +1,7 @@
 /* 
  Copyright (C) Philippe Meyer 2018
  Distributed under the MIT License
- bootstrapSelect v 0.6
+ bootstrapSelect v 0.61
 */
 
 (function ($) {
@@ -90,7 +90,9 @@
 
                 if (value == presentValue) {
                     $li.addClass("active");
-                    $title.text(text);
+                    $title
+                        .text(text)
+                        .css("color", color);
                 }
             });
 
