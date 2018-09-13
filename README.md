@@ -13,7 +13,7 @@ init : transforms an input select into a bootstrap dropdown. In order to display
 
  $("#searby-status").bootstrapSelect("init", { "colors": "on", "className": "bs-select", "maxWidth": 300 });
  
-init options are provided in the second parameters :
+## init : options are provided in the second parameters :
 - colors : on || off default is off
 - className : default is none, you can use bs-select which is provided in the bootstrapSelect.css file
 - maxWidth : integer is 500, determines the max with of the menu part, which expands otherwise up to the width of its container.
