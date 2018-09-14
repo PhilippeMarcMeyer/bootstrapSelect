@@ -39,6 +39,28 @@
 		font-size: 24px;;
 	}
 	
+	.swimming{
+		color : #0000aa;
+	}
+	
+	.dancing{
+		color : #00aa00;
+	}
+	
+	.coding{
+		color : #aa0000;
+	}
+	
+	.napping{
+		color : #aaaaff;
+		font-weight : bold;
+		text-decoration:underline;
+	}
+	
+	.whatIWant{
+		color : #48b;
+	}
+	
 	</style>
   </head>
   <body>
@@ -63,22 +85,23 @@
   
 	  
  <div id="bootstrapSelectZone" style="max-width:600px;width:600px;" >
-	  <h5 style="display:inline-block">bootstrapSelect</h5>&nbsp;v0.1
+	  <h5 style="display:inline-block">bootstrapSelect</h5>&nbsp; v0.7
 	  <p>Transform an HTML select into a bootstrap dropdown</p>
 	  <p>the select is hidden and the value is still available in it</p>
-	  <p>In this demo i use a select with values + an attribute data-color to put color in the bootstrap dropdown</p>
+	  <p>In this demo i use a select with classes in the options I want to be coloured in the bootstrap dropdown</p>
+	  <p>You mays also use a data-color attribute instead, containing the colorcode : the set the "colors" option to "on"</p>
 	  <hr/>	
 	  <b>What do you want to do :</b><br />
 	  <select id="choice">
-		  <option data-color="black" value=""></option>
-		  <option data-color="blue" value="swimming">Swimming</option>
-		  <option data-color="red" value="dancing">Dancing</option>
-		  <option data-color="orange" value="coding">Coding</option>
-		  <option data-color="green" value="dancing">Napping</option>
-		  <option data-color="#999" value="nothing">Nothing</option>
-		  <option data-color="#28905F" value="parting">Parting</option>
-		  <option data-color="orangered" value="holidaying">Holidaying</option>
-		  <option data-color="#48b" value="whatIWant">Doing what ever I want : it's a long one !</option>
+		  <option value=""></option>
+		  <option class="swimming" value="swimming">Swimming</option>
+		  <option class="dancing" value="dancing">Dancing</option>
+		  <option class="coding" value="coding">Coding</option>
+		  <option class="napping" value="napping">Napping</option>
+		  <option value="nothing">Nothing</option>
+		  <option value="parting">Parting</option>
+		  <option value="holidaying">Holidaying</option>
+		  <option class="whatIWant" value="whatIWant">Doing what ever I want : it's a long one !</option>
 	  </select>
 	
 		<button type="button" style="float:right;" id="btnGo" class="btn btn-sm btn-primary">bootstrapSelect it!</button>
@@ -98,7 +121,7 @@
 	<script>  
 		$( document ).ready(function() {
 			$("#btnGo").on("click",function(){
-				$("#choice").bootstrapSelect("init", { "colors": "on" ,"className":"bs-select","maxWidth":400});
+				$("#choice").bootstrapSelect("init", { "colors": "off" ,"className":"bs-select","maxWidth":400});
 			});
 			
 			$("#choice").on("change",function(){

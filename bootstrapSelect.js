@@ -1,23 +1,25 @@
-/* 
+﻿/* 
  Copyright (C) Philippe Meyer 2018
  Distributed under the MIT License
- bootstrapSelect v 0.61
+ bootstrapSelect v 0.7
 */
 
 (function ($) {
     const errMsg = "bootstrapSelect error : "
-    var colors = "off";
+    var byColor = "off";// public
+    var byClass = "off"; // private : specific classes for each menu item, get from the option className
     var width = 120;
-    var className = "none";
+    var className = "none"; // general class
     var maxWidth = 500;
     var $title = null;
+    var isDisabled = false;
 
     $.fn.bootstrapSelect = function (action, options) {
         if (action == "init") {
             if (!options) options = {};
 
             if (options.colors) {
-                colors = options.colors;
+                byColor = options.colors;
             }
             if (options.className) {
                 className = options.className;
@@ -72,38 +74,63 @@
                 .css({ "cursor": "pointer" });
 
             $(that).find("option").each(function (i) {
-                var color = "black";
-                if (colors == "on") {
-                    color = $(this).data("color") || color;
-                }
-
+                
                 var text = $(this).text();
                 var value = $(this).attr("value") || text;
 
                 var $li = $("<li></li>");
                 $li
 					.appendTo($ul)
-					.css("color", color)
 					.attr("data-value", value)
 					.attr("data-text", text)
-					.text(text);
+					.html(text);
 
-                if (value == presentValue) {
-                    $li.addClass("active");
-                    $title
-                        .text(text)
+                var color = "black";
+                if (byColor == "on") {
+                    color = $(this).data("color") || color;
+                    $li
                         .css("color", color);
+
+                    if (value == presentValue) {
+                        $li.addClass("active");
+                        $title
+                            .html(text)
+                            .css("color", color);
+                    }
+                } else {
+                    var className = $(this).attr("class") || "none";
+                    byClass = "on";
+                    $li
+                        .addClass(className);
+
+                    if (value == presentValue) {
+                        $li.addClass("active");
+                        $title
+                            .html(text)
+                            .attr("class", "title " + className);
+                    }
                 }
+
+
             });
 
             $($drop).find("li").on("click", function () {
-                var text = $(this).data("text");
-                var value = $(this).data("value");
-                var color = $(this).css("color") || "black";
-                $(that).val(value);
-                $(that).trigger("change");
-                $($title).text(text);
-                $($title).css("color", color);
+                if (!isDisabled) {
+                    var text = $(this).data("text");
+                    var value = $(this).data("value");
+                 
+                    $(that).val(value);
+                    $(that).trigger("change");
+                    $($title).html(text);
+                    if (byColor == "on") {
+                        var color = $(this).css("color") || "black";
+                        $($title).css("color", color);
+                    }
+                    if (byClass == "on") {
+                        var className = $(this).attr("class");
+                        $($title).attr("class", "title " + className);
+                    }
+                }
             });
 
             return (that);
@@ -117,17 +144,37 @@
                     var $li = $(targetId).find("li[data-value='" + value + "']");
                     if ($li.length == 1) {
                         var text = $li.data("text");
-                        var color = $li.css("color") || "black";
+                        if (byColor == "on") {
+                            var color = $li.css("color") || "black";
+                            $($title).css("color", color);
+                        }
+                        if (byClass == "on") {
+                            var className = $li.attr("class");
+                            $($title).attr("class", "title " + className);
+                        }
                         $(that).val(value);
                         $(that).trigger("change");
                         $title = $(targetId).find(".title");
-                        $($title).text(text);
-                        $($title).css("color", color);
+                        $($title).html(text);
                     }
                 } else {
                     console.log("setValue parameter should be either a string or a number");
                 }
             }
+            return (that);
+        }
+        else if (action == "disable") {
+            var that = this;
+            var id = $(this).attr("id");
+            isDisabled = true;
+            $("#btn-group-" + id).find("button").addClass("disabled");
+            return (that);
+        }
+        else if (action == "enable") {
+            var that = this;
+            var id = $(this).attr("id");
+            isDisabled = false;
+            $("#btn-group-" + id).find("button").removeClass("disabled");
             return (that);
         }
         else {
