@@ -39,4 +39,6 @@ The result is retrieved on the hidden input select :
 
 var result = $("#status").val();
 
+Demo : https://philippemarcmeyer.github.io/demo-bootstrapSelect.html
+
 That's all Folks !
