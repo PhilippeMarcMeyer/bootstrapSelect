@@ -5,6 +5,7 @@ Transform an HTML select into a bootstrap dropdown
 the select is hidden and the value is still available in it
 In this demo i use a select with values + an attribute data-color to put color in the bootstrap dropdown
 
+v0.7 : 2018-09-14 => Colors thru classes put in the options (much simpler)
 v0.6 : 2018-09-06 => added a setValue action
 
 Actions available :
@@ -12,6 +13,8 @@ Actions available :
 init : transforms an input select into a bootstrap dropdown. In order to display colors, simply add a data-color attribute to the select options.
 
  $("#status").bootstrapSelect("init", { "colors": "on", "className": "bs-select", "maxWidth": 300 });
+ 
+ with v0.7+, just set colors to "off" to use classes instead
  
 ## init : options are provided in the second parameters :
 - colors : on || off default is off
