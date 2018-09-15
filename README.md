@@ -1,4 +1,4 @@
-# bootstrapSelect v0.6
+# bootstrapSelect v0.7
 jQuery plugin "bootstrapSelect" which transform a select in a bootstrap dropdown with colors
 
 Transform an HTML select into a bootstrap dropdown
