@@ -1,7 +1,7 @@
 ﻿/* 
  Copyright (C) Philippe Meyer 2018
  Distributed under the MIT License
- bootstrapSelect v 0.7
+ bootstrapSelect v 0.75 : adding a tooltip plus showOption and hideOption
 */
 
 (function ($) {
@@ -13,6 +13,7 @@
     var maxWidth = 500;
     var $title = null;
     var isDisabled = false;
+    var tooltip = null; 
 
     $.fn.bootstrapSelect = function (action, options) {
         if (action == "init") {
@@ -21,6 +22,15 @@
             if (options.colors) {
                 byColor = options.colors;
             }
+            if ($.isPlainObject(options.tooltip)) {
+                if (options.tooltip.message) {
+                    tooltip = {"message":options.tooltip.message,"position":"left"};
+                    if (options.tooltip.position) {
+                        tooltip.position = options.tooltip.position;
+                    }
+                }
+            }
+
             if (options.className) {
                 className = options.className;
             }
@@ -55,6 +65,12 @@
 				.attr("aria-haspopup", "true")
 				.attr("aria-expanded", "false")
                 .css({ "width": "100%", "text-align": "left", "z-index": 1 });
+
+            if (tooltip !=null) {
+                $button
+                    .attr("data-placement", options.tooltip.position)
+                    .attr("title",options.tooltip.message.replace('"',''));
+            }
 
             var $title = $("<span></span>");
             $title
@@ -111,14 +127,15 @@
                     }
                 }
 
-
+                if (tooltip != null) {
+                    $button.tooltip();
+                }
             });
 
             $($drop).find("li").on("click", function () {
                 if (!isDisabled) {
                     var text = $(this).data("text");
                     var value = $(this).data("value");
-                 
                     $(that).val(value);
                     $(that).trigger("change");
                     $($title).html(text);
@@ -161,6 +178,44 @@
                     console.log("setValue parameter should be either a string or a number");
                 }
             }
+            return (that);
+        }
+        else if (action == "hideOption") {
+            var that = this;
+            if (options != undefined) {
+                var value = options;
+                 if ($(that).val() != value) {
+                     if (typeof value == "string" || typeof value == "number") {
+                        var targetId = "#btn-group-" + $(this).attr("id");
+                        var $li = $(targetId).find("li[data-value='" + value + "']");
+                        if ($li.length == 1) {
+                            $li.addClass("hide");
+                        }
+                    } 
+                    else {
+                        console.log("hideOption parameter should be either a string or a number");
+                    }
+                 } else {
+                     console.log("Can't hide the selected option");
+                 }
+            }
+            return (that);
+        }
+        else if (action == "showOption") {
+            var that = this;
+            if (options != undefined) {
+                var value = options;
+                if (typeof value == "string" || typeof value == "number") {
+                        var targetId = "#btn-group-" + $(this).attr("id");
+                        var $li = $(targetId).find("li[data-value='" + value + "']");
+                        if ($li.length == 1) {
+                            $li.removeClass("hide");
+                        }
+                    }
+                    else {
+                        console.log("hideOption parameter should be either a string or a number");
+                    }
+                }
             return (that);
         }
         else if (action == "disable") {

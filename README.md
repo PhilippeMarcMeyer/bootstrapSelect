@@ -1,12 +1,24 @@
-# bootstrapSelect v0.7
+# bootstrapSelect v0.75
+
 jQuery plugin "bootstrapSelect" which transform a select in a bootstrap dropdown with colors
 
 Transform an HTML select into a bootstrap dropdown
-the select is hidden and the value is still available in it
-In this demo i use a select with values + an attribute data-color to put color in the bootstrap dropdown
+the select is hidden and the chosen value is also available in it as they are binded
 
-v0.7 : 2018-09-14 => Colors thru classes put in the options (much simpler)
-v0.6 : 2018-09-06 => added a setValue action
+v0.75 : 2018-09-18 => adding a tooltip plus showOption and hideOption
+## Tooltip :
+        $("#status").bootstrapSelect("init", { "className": "bs-select", "maxWidth": 300, "tooltip": { "message": "hello World !", "position": "top" } });
+## hideOption :
+		$("#status").bootstrapSelect("hideOption",0)
+		Hides the option whitch value="0" 
+## showOption :
+		$("#status").bootstrapSelect("showOption",0)
+		Shows back the option whitch value="0" 
+		
+v0.7  : 2018-09-14 => Colors thru classes put in the options (much simpler)
+
+v0.6  : 2018-09-06 => added a setValue action
+
 
 Actions available :
 
