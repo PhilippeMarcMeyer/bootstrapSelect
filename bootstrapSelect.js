@@ -1,7 +1,7 @@
 ﻿/* 
  Copyright (C) Philippe Meyer 2018
  Distributed under the MIT License
- bootstrapSelect v 0.75 : adding a tooltip plus showOption and hideOption
+ bootstrapSelect v 0.76 : debug in setValue : the color was wrong
 */
 
 (function ($) {
@@ -159,6 +159,7 @@
                 if (typeof value == "string" || typeof value == "number") {
                     var targetId = "#btn-group-" + $(this).attr("id");
                     var $li = $(targetId).find("li[data-value='" + value + "']");
+                    var $title = $(targetId).find(".title");
                     if ($li.length == 1) {
                         var text = $li.data("text");
                         if (byColor == "on") {
@@ -171,7 +172,6 @@
                         }
                         $(that).val(value);
                         $(that).trigger("change");
-                        $title = $(targetId).find(".title");
                         $($title).html(text);
                     }
                 } else {
