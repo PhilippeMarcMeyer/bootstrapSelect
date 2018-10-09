@@ -6,6 +6,7 @@
     font-size: 14px;
     background-color: #fff;
     padding: 0.2em 2em 0.2em 1em;
+	min-height:1.4em;
 }
 
 .bs-select .title {
