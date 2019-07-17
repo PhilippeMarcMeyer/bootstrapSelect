@@ -9,6 +9,17 @@
 	min-height:1.4em;
 }
 
+.bs-select .multi li.active::after{
+  content: :"X";
+  display: inline-block;
+  float:right;
+  font-weight:bold;
+  font-size:14px;
+  margin-right:-20px;
+  color:black;
+}
+
+
 .bs-select .title {
     margin-right: 6px;
 }
@@ -25,4 +36,9 @@
 
 .bs-select button {
     min-width: 120px;
+}
+
+.bs-select button.dropdown-toggle{
+    border:1px solid #999 !important;
+    border-radius:0;
 }

@@ -1,9 +1,11 @@
-# bootstrapSelect v0.76
+# bootstrapSelect v0.8
 
 jQuery plugin "bootstrapSelect" which transform a select in a bootstrap dropdown with colors
 
 Transform an HTML select into a bootstrap dropdown
 the select is hidden and the chosen value is also available in it as they are binded
+
+v.80 : 2019-07-17 => now supports multiple attribute : just put multiple in the select tag  (uses awesome fonts)
 
 v0.76 : 2018-09-19 =>  debug in setValue : the color was wrong
 

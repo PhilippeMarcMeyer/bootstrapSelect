@@ -13,8 +13,6 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,500">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	
@@ -103,6 +101,15 @@
 		  <option value="holidaying">Holidaying</option>
 		  <option class="whatIWant" value="whatIWant">Doing what ever I want : it's a long one !</option>
 	  </select>
+	  
+	  <b>I choose :</b><br />
+                    <select id="multChoice" multiple="">
+						<option value="swimming">Swimming</option>
+						<option value="dancing">Dancing</option>
+						<option value="coding">Coding</option>
+						<option value="napping">Napping</option>
+						<option value="parting">Parting</option>
+                    </select>
 	
 		<button type="button" style="float:right;" id="btnGo" class="btn btn-sm btn-primary">bootstrapSelect it!</button>
 		<hr />
@@ -122,10 +129,15 @@
 		$( document ).ready(function() {
 			$("#btnGo").on("click",function(){
 				$("#choice").bootstrapSelect("init", { "colors": "off" ,"className":"bs-select","maxWidth":400});
+				$("#multChoice").bootstrapSelect("init", { "colors": "off" ,"className":"bs-select","maxWidth":400});
 			});
 			
 			$("#choice").on("change",function(){
 				$("#result").html($(this).val());
+			});	
+			
+			$("#choice").on("change",function(){
+				$("#multChoice").html($(this).val());
 			});	
 				
 		});
