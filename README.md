@@ -55,4 +55,6 @@ The result is retrieved on the hidden input select :
 
 var result = $("#status").val();
 
+Demo : https://philippemarcmeyer.github.io/bootstrapSelect/.
+
 That's all Folks !
