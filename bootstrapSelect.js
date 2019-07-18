@@ -21,7 +21,7 @@
             factory.isDisabled = false;
             factory.tooltip = null;
             factory.isMultiple = false;
-            factory.factoryId;
+            factory.factoryId = $(this).attr("id");
             factory.marginLeft = "0px";
 
             if (!options) options = {};
@@ -50,7 +50,6 @@
             factory.marginLeft = $(factory).css("margin-left");
             $(factory).css("display", "none");
 
-            factory.factoryId = $(factory).attr("id");
             var $drop = $("<div></div>");
             $(factory).after($drop);
 
@@ -60,7 +59,7 @@
             }
             $drop
 				.addClass("btn-group " + factory.className)
-                .attr("factoryId", "btn-group-" + factoryId)
+                .attr("id", "btn-group-" + factory.factoryId)
                 .css("margin-left", factory.marginLeft);
 
             var $button = $("<button></button>");
@@ -158,15 +157,19 @@
                             $(that).addClass("active");
                             $("#" + factory.factoryId + " option[value='" + value + "']").prop("selected", true);
                         }
-                        $(factory).trigger("change");
-                        let selectedValues = $(factory).val().join(",");
-
-                        $(factory.title).html(selectedValues);
+                       
+						let selectedTexts = ""
+						let sep = "";
+                      $($drop).find("li").each(function () {
+                            if ($(this).hasClass("active")) {
+                               selectedTexts += sep + $(this).attr("data-text");
+							   sep = ",";
+                            } 
+                        });
+                        $(factory.title).html(selectedTexts);
+						 $(factory).trigger("change");
                     }else{
-
-                        $(factory).val(value);
-                        $(factory).trigger("change");
-                        $(factory.title).html(text);
+  
                         if (byColor == "on") {
                             var color = $(that).css("color") || "black";
                             $(factory.title).css("color", color);
@@ -176,12 +179,21 @@
                             $(factory.title).attr("class", "title " + className);
                         }
                         $($drop).find("li").each(function () {
-                            if ($(this).data("value") == value) {
+                            if ($(this).attr("data-value") == value) {
                                 $(this).addClass("active");
                             } else {
                                 $(this).removeClass("active");
                             }
                         });
+						
+						$(factory).find("option").each(function (i) {
+							if($(this).val() == value){
+								$(this).prop("selected", true);
+							}
+						});
+				
+                        $(factory.title).html(text);
+						$(factory).trigger("change");
                     }
                     // isMultiple
 

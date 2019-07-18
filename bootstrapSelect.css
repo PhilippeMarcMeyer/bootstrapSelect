@@ -8,15 +8,13 @@
     padding: 0.2em 2em 0.2em 1em;
 	min-height:1.4em;
 }
-
 .bs-select .multi li.active::after{
-  content: :"X";
-  display: inline-block;
-  float:right;
+  content: "+";
+   display: inline-block;
+  font-size: inherit;
+  float:left;
   font-weight:bold;
-  font-size:14px;
-  margin-right:-20px;
-  color:black;
+  margin-left:-10px;
 }
 
 
@@ -42,3 +40,4 @@
     border:1px solid #999 !important;
     border-radius:0;
 }
+
