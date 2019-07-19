@@ -1,7 +1,9 @@
 ﻿/* 
  Copyright (C) Philippe Meyer 2018-2019
  Distributed under the MIT License
- bootstrapSelect v 0.80 : Now supports the multiple attribute : just put multiple in the select tag
+ bootstrapSelect v 0.81 : with multiple choice, now uses the size attribute of the select tag : when the selected items are <= size they are listed all in the header
+ when the list length > size it shows 'x items' to prevent the header to grow and mess with the UI !
+ setValue action in multiple mode allows only to deselect every option
 */
 
 (function ($) {
@@ -23,6 +25,7 @@
             factory.isMultiple = false;
             factory.factoryId = $(this).attr("id");
             factory.marginLeft = "0px";
+            factory.multipleSize = -1;
 
             if (!options) options = {};
 
@@ -46,6 +49,14 @@
                 factory.maxWidth = options.maxWidth;
             }
             factory.isMultiple = $(factory).attr("multiple") ? true : false;
+
+            let testMultipleSize = $(factory).attr("size");
+            if (testMultipleSize != undefined) {
+                testMultipleSize = parseInt(testMultipleSize);
+                if (!isNaN(testMultipleSize) && testMultipleSize >= 1) {
+                    factory.multipleSize = testMultipleSize
+                }
+            }
 
             factory.marginLeft = $(factory).css("margin-left");
             $(factory).css("display", "none");
@@ -157,19 +168,27 @@
                             $(that).addClass("active");
                             $("#" + factory.factoryId + " option[value='" + value + "']").prop("selected", true);
                         }
-                       
-						let selectedTexts = ""
-						let sep = "";
-                      $($drop).find("li").each(function () {
+
+                        let selectedTexts = ""
+                        let sep = "";
+                        let nrActives = 0;
+                        $($drop).find("li").each(function () {
                             if ($(this).hasClass("active")) {
-                               selectedTexts += sep + $(this).attr("data-text");
-							   sep = ",";
-                            } 
+                                nrActives++;
+                                selectedTexts += sep + $(this).attr("data-text");
+                                sep = ",";
+                            }
                         });
+                        if (factory.multipleSize != -1) {
+                            if (nrActives > factory.multipleSize) {
+                                selectedTexts = nrActives+" items"
+                            }
+                        }
+
                         $(factory.title).html(selectedTexts);
-						 $(factory).trigger("change");
-                    }else{
-  
+                        $(factory).trigger("change");
+                    } else {
+
                         if (byColor == "on") {
                             var color = $(that).css("color") || "black";
                             $(factory.title).css("color", color);
@@ -185,49 +204,55 @@
                                 $(this).removeClass("active");
                             }
                         });
-						
-						$(factory).find("option").each(function (i) {
-							if($(this).val() == value){
-								$(this).prop("selected", true);
-							}
-						});
-				
+
+                        $(factory).find("option").each(function (i) {
+                            if ($(this).val() == value) {
+                                $(this).prop("selected", true);
+                            }
+                        });
+
                         $(factory.title).html(text);
-						$(factory).trigger("change");
+                        $(factory).trigger("change");
                     }
                     // isMultiple
 
-                        
+
                 }
             });
             $ul.outerWidth($ul.outerWidth() + 30);
-       
-
-       
 
             return (factory);
         }
         else if (action == "setValue") {
-            var factory = this;
             if (options != undefined) {
                 var value = options;
                 if (typeof value == "string" || typeof value == "number") {
-                    var targetId = "#btn-group-" + $(this).attr("factoryId");
-                    var $li = $(targetId).find("li[data-value='" + value + "']");
-                    var title = $(targetId).find(".title");
-                    if ($li.length == 1) {
-                        var text = $li.data("text");
-                        if (byColor == "on") {
-                            var color = $li.css("color") || "black";
-                            $(title).css("color", color);
+                    if (factory.isMultiple) {
+                        // only empty for this version todo : complete 
+                        if (value == "") {
+                            $("#btn-group-" + factory.factoryId).find("li").each(function () {
+                                $(this).removeClass("active");
+                            });
+                            $("#btn-group-" + factory.factoryId).find(".title").html("");
                         }
-                        if (byClass == "on") {
-                            var className = $li.attr("class");
-                            $(title).attr("class", "title " + className);
+                    }else{
+                        var $li = $(targetId).find("li[data-value='" + value + "']");
+                      
+                        if ($li.length == 1) {
+                            var text = $li.data("text");
+                            if (byColor == "on") {
+                                var color = $li.css("color") || "black";
+                                $(factory.title).css("color", color);
+                            }
+                            if (byClass == "on") {
+                                var className = $li.attr("class");
+                                $(factory.title).attr("class", "title " + className);
+                            }
+                            $(factory).val(value);
+                            $(factory).trigger("change");
+                            $("#btn-group-" + factory.factoryId).find(".title").html(text);
+
                         }
-                        $(factory).val(value);
-                        $(factory).trigger("change");
-                        $(title).html(text);
                     }
                 } else {
                     console.log("setValue parameter should be either a string or a number");
@@ -236,7 +261,6 @@
             return (factory);
         }
         else if (action == "hideOption") {
-            var factory = this;
             if (options != undefined) {
                 var value = options;
                 if ($(factory).val() != value) {
@@ -257,7 +281,6 @@
             return (factory);
         }
         else if (action == "showOption") {
-            var factory = this;
             if (options != undefined) {
                 var value = options;
                 if (typeof value == "string" || typeof value == "number") {
@@ -274,17 +297,13 @@
             return (factory);
         }
         else if (action == "disable") {
-            var factory = this;
-            var factoryId = $(this).attr("factoryId");
             isDisabled = true;
-            $("#btn-group-" + factoryId).find("button").addClass("disabled");
+            $("#btn-group-" + factory.factoryId).find("button").addClass("disabled");
             return (factory);
         }
         else if (action == "enable") {
-            var factory = this;
-            var factoryId = $(this).attr("factoryId");
             isDisabled = false;
-            $("#btn-group-" + factoryId).find("button").removeClass("disabled");
+            $("#btn-group-" + factory.factoryId).find("button").removeClass("disabled");
             return (factory);
         }
         else {
