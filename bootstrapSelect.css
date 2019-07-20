@@ -3,18 +3,47 @@
 }
 
 .bs-select li {
-    font-size: 14px;
-    background-color: #fff;
-    padding: 0.2em 2em 0.2em 1em;
+	font-size: 14px;
+	background-color: #fff;
 	min-height:1.4em;
+	padding: 0.2em 2em 0.2em 1em;
 }
-.bs-select .multi li.active::after{
-  content: "+";
-   display: inline-block;
+
+.bs-select .multi li {
+	font-size: 14px;
+	background-color: #fff;
+	min-height:1.4em;
+	padding: 0.2em 2em 0.2em 26px;
+}
+
+
+.bs-select .multi li::before{
+  content: "";
+  display: inline-block;
   font-size: inherit;
   float:left;
   font-weight:bold;
-  margin-left:-10px;
+  margin-left:-18px;
+  margin-right:2px;
+  border : 1px solid;
+  border-radius : 3px;
+  padding : 6px;
+  margin-top:3px;
+  color:black;
+}
+
+.bs-select .multi li.active::after{
+  content: "";
+  display: inline-block;
+  font-size: inherit;
+  float:left;
+  font-weight:bold;
+   border : 1px solid;
+     padding : 3px;
+background-color :black;
+  margin-left:-15px;
+    margin-top:6px;
+  color:black;
 }
 
 

@@ -7,30 +7,30 @@
 */
 
 (function ($) {
-    const errMsg = "bootstrapSelect error : "
-
-    var factory;
 
     $.fn.bootstrapSelect = function (action, options) {
+		 const errMsg = "bootstrapSelect error : "
+		 var factory;
         if (action == "init") {
             factory = this;
             factory.byColor = "off";// public
             factory.byClass = "off"; // private : specific classes for each menu item, get from the option className
             factory.width = 120;
-            factory.className = "none"; // general class
+            factory.className = "bs-select"; // general class
             factory.maxWidth = 500;
-            factory.title = null;
             factory.isDisabled = false;
             factory.tooltip = null;
             factory.isMultiple = false;
             factory.factoryId = $(this).attr("id");
             factory.marginLeft = "0px";
             factory.multipleSize = -1;
+			factory.header; // button
+			factory.title= null; // button title
 
             if (!options) options = {};
 
             if (options.colors) {
-                byColor = options.colors;
+                factory.byColor = options.colors;
             }
             if ($.isPlainObject(options.tooltip)) {
                 if (options.tooltip.message) {
@@ -101,6 +101,8 @@
 				.appendTo($button)
 				.addClass("caret")
                 .css({ "position": "absolute", "right": "8px", "margin-top": "8px" });
+				
+				factory.header = $button;
 
             var $ul = $("<ul></ul>");
             $ul
@@ -125,7 +127,7 @@
 					.html(text);
 
                 var color = "black";
-                if (byColor == "on") {
+                if (factory.byColor == "on") {
                     color = $(this).data("color") || color;
                     $li
                         .css("color", color);
@@ -138,7 +140,7 @@
                     }
                 } else {
                     var className = $(this).attr("class") || "none";
-                    byClass = "on";
+                    factory.byClass = "on";
                     $li
                         .addClass(className);
 
@@ -189,11 +191,11 @@
                         $(factory).trigger("change");
                     } else {
 
-                        if (byColor == "on") {
+                        if (factory.byColor == "on") {
                             var color = $(that).css("color") || "black";
                             $(factory.title).css("color", color);
                         }
-                        if (byClass == "on") {
+                        if (factory.byClass == "on") {
                             var className = $(that).attr("class");
                             $(factory.title).attr("class", "title " + className);
                         }
@@ -216,76 +218,51 @@
                     }
                     // isMultiple
 
-
                 }
             });
             $ul.outerWidth($ul.outerWidth() + 30);
 
             return (factory);
         }
-        else if (action == "setValue") {
-            if (options != undefined) {
-                var value = options;
-                if (typeof value == "string" || typeof value == "number") {
-                    if (factory.isMultiple) {
-                        // only empty for this version todo : complete 
-                        if (value == "") {
-                            $("#btn-group-" + factory.factoryId).find("li").each(function () {
-                                $(this).removeClass("active");
-                            });
-                            $("#btn-group-" + factory.factoryId).find(".title").html("");
-                        }
-                    }else{
-                        var $li = $(targetId).find("li[data-value='" + value + "']");
-                      
-                        if ($li.length == 1) {
-                            var text = $li.data("text");
-                            if (byColor == "on") {
-                                var color = $li.css("color") || "black";
-                                $(factory.title).css("color", color);
-                            }
-                            if (byClass == "on") {
-                                var className = $li.attr("class");
-                                $(factory.title).attr("class", "title " + className);
-                            }
-                            $(factory).val(value);
-                            $(factory).trigger("change");
-                            $("#btn-group-" + factory.factoryId).find(".title").html(text);
+        else if (action == "empty") {
+			let $target = "#btn-group-" + $(this).attr("id");
 
-                        }
-                    }
-                } else {
-                    console.log("setValue parameter should be either a string or a number");
-                }
-            }
-            return (factory);
+             $($target).find("li").each(function () {
+				$(this).removeClass("active");
+             });
+            $($target).find(".title").html("");
+            return (this);
         }
         else if (action == "hideOption") {
+			factory = this;
+			let $target = "#btn-group-" + $(this).attr("id");
             if (options != undefined) {
                 var value = options;
-                if ($(factory).val() != value) {
                     if (typeof value == "string" || typeof value == "number") {
-                        var targetId = "#btn-group-" + $(this).attr("factoryId");
-                        var $li = $(targetId).find("li[data-value='" + value + "']");
+                        var $li = $($target).find("li[data-value='" + value + "']");
                         if ($li.length == 1) {
-                            $li.addClass("hide");
+							let isSelected = $($target).find("option[value='" + value + "']").prop("selected");
+							if(!isSelected){
+								$li.removeClass("active");
+								$li.addClass("hide");
+							}else{
+								console.log("can't hide selected option !");
+							}
                         }
                     }
                     else {
                         console.log("hideOption parameter should be either a string or a number");
                     }
-                } else {
-                    console.log("Can't hide the selected option");
-                }
             }
             return (factory);
         }
         else if (action == "showOption") {
+			factory = this;
+			let $target = "#btn-group-" + $(this).attr("id");
             if (options != undefined) {
                 var value = options;
                 if (typeof value == "string" || typeof value == "number") {
-                    var targetId = "#btn-group-" + $(this).attr("factoryId");
-                    var $li = $(targetId).find("li[data-value='" + value + "']");
+                    var $li = $($target ).find("li[data-value='" + value + "']");
                     if ($li.length == 1) {
                         $li.removeClass("hide");
                     }
@@ -298,13 +275,15 @@
         }
         else if (action == "disable") {
             isDisabled = true;
-            $("#btn-group-" + factory.factoryId).find("button").addClass("disabled");
-            return (factory);
+			let $target = "#btn-group-" + $(this).attr("id");
+            $($target).find("button").addClass("disabled");
+            return (this);
         }
         else if (action == "enable") {
             isDisabled = false;
-            $("#btn-group-" + factory.factoryId).find("button").removeClass("disabled");
-            return (factory);
+		let $target = "#btn-group-" + $(this).attr("id");
+            $($target).find("button").removeClass("disabled");
+            return (this);
         }
         else {
             onError = true;

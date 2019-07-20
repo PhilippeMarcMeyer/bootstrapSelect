@@ -41,23 +41,21 @@
 		color : #0000aa;
 	}
 	
-	.dancing{
+	.walking{
 		color : #00aa00;
 	}
 	
-	.coding{
+	.running{
 		color : #aa0000;
 	}
 	
-	.napping{
+	.soccer{
 		color : #aaaaff;
 		font-weight : bold;
 		text-decoration:underline;
 	}
 	
-	.whatIWant{
-		color : #48b;
-	}
+
 	
 	</style>
   </head>
@@ -85,40 +83,46 @@
  <div id="bootstrapSelectZone" style="max-width:800px;width:800px;" >
 	  <h5 style="display:inline-block">bootstrapSelect</h5>&nbsp; v0.81
 	  <p>Transform an HTML select into a bootstrap dropdown</p>
-	  <p>the select is hidden and the value is still available in it</p>
+	  <p>the select is hidden and its value is updated on the fly</p>
 	  <p>In this demo i use a select with classes in the options I want to be coloured in the bootstrap dropdown</p>
 	  <p>You mays also use a data-color attribute instead, containing the colorcode : the set the "colors" option to "on"</p>
-	  <p><b>New in v0.80 : </b> add multiple to a select tag to get a multichoice bootstrap dropdown :-)</p>
 	  <hr/>	
-	    <div>
-	  <b>What do you want to do :</b><br />
-	
+	  <div>
+	  <label>What is you fav sport ?</label><br />
 	  <select id="choice">
 		  <option value=""></option>
 		  <option class="swimming" value="swimming">Swimming</option>
-		  <option class="dancing" value="dancing">Dancing</option>
-		  <option class="coding" value="coding">Coding</option>
-		  <option class="napping" value="napping">Napping</option>
-		  <option value="nothing">Nothing</option>
-		  <option value="parting">Parting</option>
-		  <option value="holidaying">Holidaying</option>
-		  <option class="whatIWant" value="whatIWant">Doing what ever I want : it's a long one !</option>
+		  <option class="running" value="dancing">Running</option>
+		  <option class="walking" value="coding">Walking</option>
+		  <option class="soccer" value="napping">Soccer</option>
+		  <option value="tv">Watching TV</option>
 	  </select>
-	    </div>
-		  <div>
-	  <b>I choose :</b><br />
-                    <select id="multChoice" size="3" multiple="">
-						<option value="swimming">Swimming</option>
-						<option value="dancing">Dancing</option>
-						<option value="coding">Coding</option>
-						<option value="napping">Napping</option>
-						<option value="parting">Parting</option>
-                    </select>
+	   </div>
+	   <br />
+	   		<button type="button" id="btnGo1" class="btn btn-sm btn-default">bootstrap it!</button>
+	  <hr/>	
+
+	  <p>Now add a multiple attribute to the select (this time without colors) : </p>
+
+	  <div>
+	  <label>Why choosing only one ?</label><br />
+		<select id="multChoice" size="3" multiple="">
+		  <option class="swimming" value="swimming">Swimming</option>
+		  <option class="running" value="dancing">Running</option>
+		  <option class="walking" value="coding">Walking</option>
+		  <option class="soccer" value="napping">Soccer</option>
+			<option value="tv">Watching TV</option>
+		</select>
 	  </div>
-		<button type="button" style="float:right;" id="btnGo" class="btn btn-sm btn-primary">bootstrapSelect it!</button>
+	    <br />
+		<button type="button" id="btnGo2" class="btn btn-sm btn-default">bootstrap it!</button>
 		<hr />
-		<b>Result in select :</b>&nbsp;<div id="result"></div>
-		
+		<button type="button" id="btnHide" class="btn btn-sm btn-default">Hide Watching TV !</button>
+		<button type="button" id="btnShow" class="btn btn-sm btn-default">Show Watching TV ...</button>
+		<button type="button" id="btnEmpty" class="btn btn-sm btn-default">Empty selection</button>
+		<button type="button" id="btnDisable" class="btn btn-sm btn-default">Disable</button>
+		<button type="button" id="btnEnable" class="btn btn-sm btn-default">Enable</button>
+
   </div>
   
   
@@ -130,25 +134,47 @@
 	  <script src="./bootstrapSelect.js"></script>
 	  
 	<script>  
-		$( document ).ready(function() {
-			$("#btnGo").on("click",function(){
-				$("#choice").bootstrapSelect("init", { "colors": "off" ,"className":"bs-select","maxWidth":400});
-				$("#multChoice").bootstrapSelect("init", { "colors": "off" ,"className":"bs-select","maxWidth":400});
+		$(document ).ready(function() {
+			$("#btnHide").hide();
+			$("#btnShow").hide();
+			$("#btnEmpty").hide();
+			$("#btnDisable").hide();
+			$("#btnEnable").hide();
+			
+			$("#btnGo1").on("click",function(){
+				$("#choice").bootstrapSelect("init", {"maxWidth":400});
+				$("#btnGo1").hide();
 			});
-			
-			$("#choice").on("change",function(){
-				$("#result").html($(this).val());
+			$("#btnGo2").on("click",function(){
+				$("#multChoice").bootstrapSelect("init", { "colors": "off" ,"className":"bs-select","maxWidth":400});
+				$("#btnGo2").hide();
+				$("#btnHide").show();
+				$("#btnEmpty").show();
+				$("#btnDisable").show();
 			});	
-			
-			$("#multChoice").on("change",function(){
-				let result = $(this).val();
-				if(result){
-					$("#result").html(result.join(","));
-				}else{
-				$("#result").html("");
-				}
+			$("#btnHide").on("click",function(){
+				$("#multChoice").bootstrapSelect("hideOption", "tv");
+				$("#btnHide").hide();
+				$("#btnShow").show();
 			});	
-				
+			$("#btnShow").on("click",function(){
+				$("#multChoice").bootstrapSelect("showOption","tv");
+				$("#btnHide").show();
+				$("#btnShow").hide();
+			});	
+			$("#btnEmpty").on("click",function(){
+				$("#multChoice").bootstrapSelect("empty");
+			});	
+			$("#btnDisable").on("click",function(){
+				$("#multChoice").bootstrapSelect("disable");
+				$("#btnEnable").show();
+				$("#btnDisable").hide();
+			});	
+			$("#btnEnable").on("click",function(){
+				$("#multChoice").bootstrapSelect("enable");
+				$("#btnEnable").hide();
+				$("#btnDisable").show();
+			});					
 		});
 	 </script>  
 </html>
