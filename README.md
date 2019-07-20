@@ -16,10 +16,10 @@ v0.75 : 2018-09-18 => adding a tooltip plus showOption and hideOption
 ## Tooltip :
         $("#status").bootstrapSelect("init", { "className": "bs-select", "maxWidth": 300, "tooltip": { "message": "hello World !", "position": "top" } });
 ## hideOption :
-		$("#status").bootstrapSelect("hideOption",0)
+		$("#status").bootstrapSelect("hideOption","walking")
 		Hides the option whitch value="0" 
 ## showOption :
-		$("#status").bootstrapSelect("showOption",0)
+		$("#status").bootstrapSelect("showOption","walking")
 		Shows back the option whitch value="0" 
 		
 v0.7  : 2018-09-14 => Colors thru classes put in the options (much simpler)
@@ -40,9 +40,12 @@ init : transforms an input select into a bootstrap dropdown. In order to display
 - className : default is none, you can use bs-select which is provided in the bootstrapSelect.css file
 - maxWidth : integer is 500, determines the max with of the menu part, which expands otherwise up to the width of its container.
 ## setValue :
-- Equivalent to .val(value), set value in both input select and plugin, triggers a change to the input select.
+replace in v0.81 by 
+### empty 
+and 
+the values preset in the select are shown in the dropdown
 
-$("#status").bootstrapSelect("setValue",2);
+$("#status").bootstrapSelect("empty");
 
 ## disable :
 - disables the menu
