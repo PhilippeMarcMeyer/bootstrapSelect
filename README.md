@@ -2,7 +2,7 @@
 
 jQuery plugin "bootstrapSelect" which transform a select in a bootstrap dropdown with colors
 
-![screen shot](https://raw.githubusercontent.com/PhilippeMarcMeyer/BootstapSelect/master/demo.png)
+![screen shot](https://raw.githubusercontent.com/PhilippeMarcMeyer/bootstrapSelect/master/demo.png)
 
 Transform an HTML select into a bootstrap dropdown
 the select is hidden and the chosen value is also available in it as they are binded
