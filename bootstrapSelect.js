@@ -114,6 +114,9 @@
                 $ul.addClass("multi");
             }
 
+			let selectedTexts = ""
+			let sep = "";
+			let nrActives = 0;
             $(factory).find("option").each(function (i) {
 
                 var text = $(this).text();
@@ -125,7 +128,15 @@
 					.attr("data-value", value)
 					.attr("data-text", text)
 					.html(text);
-
+					
+				let optionSelected = $(this).prop("selected");
+				if(optionSelected){
+					$li.addClass("active");
+					 nrActives++;
+                      selectedTexts += sep + text;
+                      sep = ",";
+				}
+				
                 var color = "black";
                 if (factory.byColor == "on") {
                     color = $(this).data("color") || color;
@@ -156,6 +167,14 @@
                     $button.tooltip();
                 }
             });
+			
+			if (factory.multipleSize != -1) {
+				if (nrActives > factory.multipleSize) {
+				selectedTexts = nrActives+" items"
+				}
+			}
+
+			$(factory.title).html(selectedTexts);
 
             $($drop).find("li").on("click", function () {
                 let that = this;
@@ -217,7 +236,6 @@
                         $(factory).trigger("change");
                     }
                     // isMultiple
-
                 }
             });
             $ul.outerWidth($ul.outerWidth() + 30);
