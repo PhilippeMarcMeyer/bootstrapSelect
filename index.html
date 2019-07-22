@@ -94,14 +94,18 @@
 	  <select id="choice">
 		  <option value=""></option>
 		  <option class="swimming" value="swimming">Swimming</option>
-		  <option class="running" value="dancing" selected="selected" >Running</option>
-		  <option class="walking" value="coding">Walking</option>
-		  <option class="soccer" value="napping">Soccer</option>
+		  <option class="running" value="running" selected="selected" >Running</option>
+		  <option class="walking" value="walking">Walking</option>
+		  <option class="soccer" value="soccer">Soccer</option>
 		  <option value="tv">Watching TV</option>
 	  </select>
 	   </div>
 	   <br />
 	   		<button type="button" id="btnGo1" class="btn btn-sm btn-default">bootstrap it!</button>
+			<button type="button" id="btnEmpty1" class="btn btn-sm btn-default">Empty selection</button>
+
+			<button type="button" id="btnSet1" class="btn btn-sm btn-default">SetValue("soccer")</button>
+
 	  <hr/>	
 
 	  <p>Now add a multiple attribute to the select (this time without colors) : </p>
@@ -110,9 +114,9 @@
 	  <label>Why choosing only one ?</label><br />
 		<select id="multChoice" size="3" multiple="">
 		  <option class="swimming" value="swimming">Swimming</option>
-		  <option class="running" value="dancing">Running</option>
-		  <option class="walking" value="coding">Walking</option>
-		  <option class="soccer" value="napping">Soccer</option>
+		  <option class="running" value="running">Running</option>
+		  <option class="walking" value="walking">Walking</option>
+		  <option class="soccer" value="soccer">Soccer</option>
 			<option value="tv">Watching TV</option>
 		</select>
 	  </div>
@@ -124,6 +128,7 @@
 		<button type="button" id="btnEmpty" class="btn btn-sm btn-default">Empty selection</button>
 		<button type="button" id="btnDisable" class="btn btn-sm btn-default">Disable</button>
 		<button type="button" id="btnEnable" class="btn btn-sm btn-default">Enable</button>
+		<button type="button" id="btnSet2" class="btn btn-sm btn-default">SetValue("swimming,walking,soccer")</button>
 
   </div>
   
@@ -142,17 +147,33 @@
 			$("#btnEmpty").hide();
 			$("#btnDisable").hide();
 			$("#btnEnable").hide();
+			$("#btnSet2").hide();
+			$("#btnSet1").hide();
+			$("#btnEmpty1").hide();
 			
 			$("#btnGo1").on("click",function(){
 				$("#choice").bootstrapSelect("init", {"maxWidth":400});
 				$("#btnGo1").hide();
+				$("#btnSet1").show();
+				$("#btnEmpty1").show();
 			});
+			
+			$("#btnEmpty1").on("click",function(){
+				$("#choice").bootstrapSelect("empty");
+			});	
+			
+			$("#btnSet1").on("click",function(){
+				$("#choice").bootstrapSelect("setValue","soccer");
+			});
+				
 			$("#btnGo2").on("click",function(){
 				$("#multChoice").bootstrapSelect("init", { "colors": "off" ,"className":"bs-select","maxWidth":400});
 				$("#btnGo2").hide();
 				$("#btnHide").show();
 				$("#btnEmpty").show();
 				$("#btnDisable").show();
+				$("#btnSet2").show();
+
 			});	
 			$("#btnHide").on("click",function(){
 				$("#multChoice").bootstrapSelect("hideOption", "tv");
@@ -176,7 +197,10 @@
 				$("#multChoice").bootstrapSelect("enable");
 				$("#btnEnable").hide();
 				$("#btnDisable").show();
-			});					
+			});	
+			$("#btnSet2").on("click",function(){
+				$("#multChoice").bootstrapSelect("setValue","swimming,walking,soccer");
+			});
 		});
 	 </script>  
 </html>

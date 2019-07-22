@@ -4,6 +4,7 @@
  bootstrapSelect v 0.81 : with multiple choice, now uses the size attribute of the select tag : when the selected items are <= size they are listed all in the header
  when the list length > size it shows 'x items' to prevent the header to grow and mess with the UI !
  setValue action in multiple mode allows only to deselect every option
+ https://github.com/PhilippeMarcMeyer/bootstrapSelect
 */
 
 (function ($) {
@@ -243,17 +244,88 @@
             return (factory);
         }
         else if (action == "empty") {
+			let factory = this;
 			let $target = "#btn-group-" + $(this).attr("id");
+			if($($target).find("button").hasClass("disabled")) return;
 
+			$($target).find("option").each(function () {
+				$(this).prop("selected",false);
+             });
+			 
              $($target).find("li").each(function () {
 				$(this).removeClass("active");
              });
+			 
             $($target).find(".title").html("");
+            return (this);
+			
+			
+        }else if (action == "setValue") {
+			let factory = this;
+			let $target = "#btn-group-" + $(this).attr("id");
+			if($($target).find("button").hasClass("disabled")) return;
+
+			if (options == undefined) return;
+			let values = [];
+			var rowValue = options;
+            if (typeof rowValue == "string") {
+				values = rowValue.split(",");
+			}else if (typeof value == "number"){
+				values = [rowValue];
+			}else if(typeof value == "object"){
+				if(Object.prototype.toString.call(rowValue) == "[object Array]"){
+					value = rowValue;
+				}
+			}else{
+				 return;
+			}			
+			let selectedTexts = ""
+			let sep = "";
+			let nrActives = 0;
+			
+			$(factory).find("option").each(function () {
+				let value = $(this).attr("value");
+				if(values.indexOf(value)!=-1){
+					$(this).prop("selected", true);
+				}
+				else
+				{
+					$(this).prop("selected", false);
+				}
+             });
+			 
+             $($target).find("li").each(function () {
+				 let value = $(this).attr("data-value");
+				 let text = $(this).attr("data-text");
+				 if(values.indexOf(value)!=-1){
+					$(this).addClass("active");
+					selectedTexts += sep + text;
+					sep = ",";
+					nrActives++;
+				}
+				else
+				{
+					$(this).removeClass("active");
+				}
+             });
+			 factory.isMultiple = $(factory).attr("multiple") ? true : false;
+            let testMultipleSize = $(factory).attr("size");
+            if (testMultipleSize != undefined) {
+                testMultipleSize = parseInt(testMultipleSize);
+                if (!isNaN(testMultipleSize) && testMultipleSize >= 1) {
+                    factory.multipleSize = testMultipleSize
+                }
+            }
+			if (nrActives > factory.multipleSize) {
+				selectedTexts = nrActives+" items"
+				}
+            $($target).find(".title").html(selectedTexts);
             return (this);
         }
         else if (action == "hideOption") {
-			factory = this;
+			let factory = this;
 			let $target = "#btn-group-" + $(this).attr("id");
+			if($($target).find("button").hasClass("disabled")) return;
             if (options != undefined) {
                 var value = options;
                     if (typeof value == "string" || typeof value == "number") {
@@ -275,8 +347,9 @@
             return (factory);
         }
         else if (action == "showOption") {
-			factory = this;
+			let factory = this;
 			let $target = "#btn-group-" + $(this).attr("id");
+			if($($target).find("button").hasClass("disabled")) return;
             if (options != undefined) {
                 var value = options;
                 if (typeof value == "string" || typeof value == "number") {
