@@ -13,9 +13,9 @@ v0.83 : in case of multiple choice, the menu stays open until outside click
 
 v0.82 : Translations : the word "items" can be replace and the world "all" in options (2nd param) 
 ```
-	$("#multChoice").bootstrapSelect("init", { "translations" :{ "all": "All checked", "items": "Values" },"maxWidth":400});
+$("#multChoice").bootstrapSelect("init", { "translations" :{ "all": "All checked", "items": "Values" }});
 ```	
-	When all the items have been checked, the word "all" or its translation appears instead of "n items"
+When all the items have been checked, the word "all" or its translation appears instead of "n items"
 
 v0.81 : with multiple choice, now uses the size attribute of the select tag : when the selected items are <= size they are listed all in the header when the list length > size it shows 'x items' to prevent the header to grow and mess with the UI !
  setValue action in multiple mode allows only to deselect every option
