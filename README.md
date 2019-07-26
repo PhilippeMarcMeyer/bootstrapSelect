@@ -27,7 +27,7 @@ v0.76 : 2018-09-19 =>  debug in setValue : the color was wrong
 v0.75 : 2018-09-18 => adding a tooltip plus showOption and hideOption
 ## Tooltip :
 ```
-        $("#status").bootstrapSelect("init", { "maxWidth": 300, "tooltip": { "message": "hello World !", "position": "top" } });
+$("#status").bootstrapSelect("init", { "tooltip": { "message": "hello World !", "position": "top" } });
 ```
 
 ## hideOption :
