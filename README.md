@@ -1,4 +1,4 @@
-# bootstrapSelect v0.81
+# bootstrapSelect v0.83
 
 jQuery plugin "bootstrapSelect" which transform a select in a bootstrap dropdown with colors
 
@@ -9,10 +9,15 @@ Demo : https://philippemarcmeyer.github.io/bootstrapSelect/.
 Transform an HTML select into a bootstrap dropdown
 the select is hidden and the chosen value is also available in it as they are binded
 
+v0.82 : Translations : the word "items" can be replace and the world "all" in options (2nd param) 
+	$("#multChoice").bootstrapSelect("init", { "translations" :{ "all": "All checked", "items": "Values" },"maxWidth":400});
+	
+	When all the items have been checked, the word "all" or its translation appears instead of "n items"
+
 v0.81 : with multiple choice, now uses the size attribute of the select tag : when the selected items are <= size they are listed all in the header when the list length > size it shows 'x items' to prevent the header to grow and mess with the UI !
  setValue action in multiple mode allows only to deselect every option
 
-v.80 : 2019-07-17 => now supports multiple attribute : just put multiple in the select tag  (uses awesome fonts)
+v0.80 : 2019-07-17 => now supports multiple attribute : just put multiple in the select tag  (uses awesome fonts)
 
 v0.76 : 2018-09-19 =>  debug in setValue : the color was wrong
 
@@ -44,11 +49,13 @@ init : transforms an input select into a bootstrap dropdown. In order to display
 - className : default is none, you can use bs-select which is provided in the bootstrapSelect.css file
 - maxWidth : integer is 500, determines the max with of the menu part, which expands otherwise up to the width of its container.
 ## setValue :
-replace in v0.81 by 
-### empty 
-and 
-the values preset in the select are shown in the dropdown
+$("#status").bootstrapSelect("setValue","one,two,anything");
 
+$("#status").bootstrapSelect("setValue","all");
+
+$("#status").bootstrapSelect("setValue","");
+
+## empty : 
 $("#status").bootstrapSelect("empty");
 
 ## disable :
