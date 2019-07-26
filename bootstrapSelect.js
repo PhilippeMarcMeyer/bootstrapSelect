@@ -1,7 +1,7 @@
 ﻿/* 
  Copyright (C) Philippe Meyer 2018-2019
  Distributed under the MIT License
- bootstrapSelect v 0.81 : with multiple choice, now uses the size attribute of the select tag : when the selected items are <= size they are listed all in the header
+ bootstrapSelect v 0.82 : with multiple choice, now uses the size attribute of the select tag : when the selected items are <= size they are listed all in the header
  when the list length > size it shows 'x items' to prevent the header to grow and mess with the UI !
  setValue action in multiple mode allows only to deselect every option
  https://github.com/PhilippeMarcMeyer/bootstrapSelect
@@ -10,8 +10,8 @@
 (function ($) {
 
     $.fn.bootstrapSelect = function (action, options) {
-		 const errMsg = "bootstrapSelect error : "
-		 var factory;
+        const errMsg = "bootstrapSelect error : "
+        var factory;
         if (action == "init") {
             factory = this;
             factory.byColor = "off";// public
@@ -25,8 +25,9 @@
             factory.factoryId = $(this).attr("id");
             factory.marginLeft = "0px";
             factory.multipleSize = -1;
-			factory.header; // button
-			factory.title= null; // button title
+            factory.header; // button
+            factory.title = null; // button title
+            factory.translations = { "all": "All", "items": "items" };
 
             if (!options) options = {};
 
@@ -44,6 +45,10 @@
 
             if (options.className != undefined) {
                 factory.className = options.className;
+            }
+
+            if (options.translations != undefined) {
+                factory.translations = options.translations;
             }
 
             if (options.maxWidth != undefined) {
@@ -102,8 +107,8 @@
 				.appendTo($button)
 				.addClass("caret")
                 .css({ "position": "absolute", "right": "8px", "margin-top": "8px" });
-				
-				factory.header = $button;
+
+            factory.header = $button;
 
             var $ul = $("<ul></ul>");
             $ul
@@ -115,9 +120,10 @@
                 $ul.addClass("multi");
             }
 
-			let selectedTexts = ""
-			let sep = "";
-			let nrActives = 0;
+            let selectedTexts = ""
+            let sep = "";
+            let nrActives = 0;
+
             $(factory).find("option").each(function (i) {
 
                 var text = $(this).text();
@@ -129,15 +135,15 @@
 					.attr("data-value", value)
 					.attr("data-text", text)
 					.html(text);
-					
-				let optionSelected = $(this).prop("selected");
-				if(optionSelected){
-					$li.addClass("active");
-					 nrActives++;
-                      selectedTexts += sep + text;
-                      sep = ",";
-				}
-				
+
+                let optionSelected = $(this).prop("selected");
+                if (optionSelected) {
+                    $li.addClass("active");
+                    nrActives++;
+                    selectedTexts += sep + text;
+                    sep = ",";
+                }
+
                 var color = "black";
                 if (factory.byColor == "on") {
                     color = $(this).data("color") || color;
@@ -168,14 +174,15 @@
                     $button.tooltip();
                 }
             });
-			
-			if (factory.multipleSize != -1) {
-				if (nrActives > factory.multipleSize) {
-				selectedTexts = nrActives+" items"
-				}
-			}
 
-			$(factory.title).html(selectedTexts);
+            if (factory.multipleSize != -1) {
+                if (nrActives > factory.multipleSize) {
+                    let wordForItems = factory.translations.items || "items"
+                    selectedTexts = nrActives + " " + wordForItems;
+                }
+            }
+
+            $(factory.title).html(selectedTexts);
 
             $($drop).find("li").on("click", function () {
                 let that = this;
@@ -194,16 +201,22 @@
                         let selectedTexts = ""
                         let sep = "";
                         let nrActives = 0;
+                        let nrAll = 0;
                         $($drop).find("li").each(function () {
+                            nrAll++;
                             if ($(this).hasClass("active")) {
                                 nrActives++;
                                 selectedTexts += sep + $(this).attr("data-text");
                                 sep = ",";
                             }
                         });
-                        if (factory.multipleSize != -1) {
+                        if (nrAll == nrActives) {
+                            let wordForAll = factory.translations.all || "all";
+                            selectedTexts = wordForAll;
+                        } else if (factory.multipleSize != -1) {
                             if (nrActives > factory.multipleSize) {
-                                selectedTexts = nrActives+" items"
+                                let wordForItems = factory.translations.items || "items"
+                                selectedTexts = nrActives + " " + wordForItems;
                             }
                         }
 
@@ -240,75 +253,74 @@
                 }
             });
             $ul.outerWidth($ul.outerWidth() + 30);
-
-            return (factory);
+            return factory;
         }
         else if (action == "empty") {
-			let factory = this;
-			let $target = "#btn-group-" + $(this).attr("id");
-			if($($target).find("button").hasClass("disabled")) return;
+            let factory = this;
+            let $target = "#btn-group-" + $(this).attr("id");
+            if ($($target).find("button").hasClass("disabled")) return;
 
-			$($target).find("option").each(function () {
-				$(this).prop("selected",false);
-             });
-			 
-             $($target).find("li").each(function () {
-				$(this).removeClass("active");
-             });
-			 
+            $($target).find("option").each(function () {
+                $(this).prop("selected", false);
+            });
+
+            $($target).find("li").each(function () {
+                $(this).removeClass("active");
+            });
+
             $($target).find(".title").html("");
             return (this);
-			
-			
-        }else if (action == "setValue") {
-			let factory = this;
-			let $target = "#btn-group-" + $(this).attr("id");
-			if($($target).find("button").hasClass("disabled")) return;
 
-			if (options == undefined) return;
-			let values = [];
-			var rowValue = options;
+
+        } else if (action == "setValue") {
+            let factory = this;
+            let $target = "#btn-group-" + $(this).attr("id");
+            if ($($target).find("button").hasClass("disabled")) return;
+
+            if (options == undefined) return;
+            let values = [];
+            var rowValue = options;
             if (typeof rowValue == "string") {
-				values = rowValue.split(",");
-			}else if (typeof value == "number"){
-				values = [rowValue];
-			}else if(typeof value == "object"){
-				if(Object.prototype.toString.call(rowValue) == "[object Array]"){
-					value = rowValue;
-				}
-			}else{
-				 return;
-			}			
-			let selectedTexts = ""
-			let sep = "";
-			let nrActives = 0;
-			
-			$(factory).find("option").each(function () {
-				let value = $(this).attr("value");
-				if(values.indexOf(value)!=-1){
-					$(this).prop("selected", true);
-				}
-				else
-				{
-					$(this).prop("selected", false);
-				}
-             });
-			 
-             $($target).find("li").each(function () {
-				 let value = $(this).attr("data-value");
-				 let text = $(this).attr("data-text");
-				 if(values.indexOf(value)!=-1){
-					$(this).addClass("active");
-					selectedTexts += sep + text;
-					sep = ",";
-					nrActives++;
-				}
-				else
-				{
-					$(this).removeClass("active");
-				}
-             });
-			 factory.isMultiple = $(factory).attr("multiple") ? true : false;
+                values = rowValue.split(",");
+            } else if (typeof value == "number") {
+                values = [rowValue];
+            } else if (typeof value == "object") {
+                if (Object.prototype.toString.call(rowValue) == "[object Array]") {
+                    value = rowValue;
+                }
+            } else {
+                return;
+            }
+            let selectedTexts = ""
+            let sep = "";
+            let nrActives = 0;
+            let nrAll = 0;
+            let setAll = values.length == 1 && values[0] == "all";
+            $(factory).find("option").each(function () {
+                nrAll++;
+                let value = $(this).attr("value");
+                if (setAll || values.indexOf(value) != -1) {
+                    $(this).prop("selected", true);
+                }
+                else {
+                    $(this).prop("selected", false);
+                }
+            });
+
+            $($target).find("li").each(function () {
+                let value = $(this).attr("data-value");
+                let text = $(this).attr("data-text");
+                if (setAll || values.indexOf(value) != -1) {
+                    $(this).addClass("active");
+                    selectedTexts += sep + text;
+                    sep = ",";
+                    nrActives++;
+                }
+                else {
+                    $(this).removeClass("active");
+                }
+            });
+            factory.isMultiple = $(factory).attr("multiple") ? true : false;
             let testMultipleSize = $(factory).attr("size");
             if (testMultipleSize != undefined) {
                 testMultipleSize = parseInt(testMultipleSize);
@@ -316,44 +328,48 @@
                     factory.multipleSize = testMultipleSize
                 }
             }
-			if (nrActives > factory.multipleSize) {
-				selectedTexts = nrActives+" items"
-				}
+            if (nrActives == nrAll) {
+                let wordForAll = factory.translations.all || "all"
+                selectedTexts = wordForAll;
+            } else if (nrActives > factory.multipleSize) {
+                let wordForItems = factory.translations.items || "items"
+                selectedTexts = nrActives + " " + wordForItems;
+            }
             $($target).find(".title").html(selectedTexts);
             return (this);
         }
         else if (action == "hideOption") {
-			let factory = this;
-			let $target = "#btn-group-" + $(this).attr("id");
-			if($($target).find("button").hasClass("disabled")) return;
+            let factory = this;
+            let $target = "#btn-group-" + $(this).attr("id");
+            if ($($target).find("button").hasClass("disabled")) return;
             if (options != undefined) {
                 var value = options;
-                    if (typeof value == "string" || typeof value == "number") {
-                        var $li = $($target).find("li[data-value='" + value + "']");
-                        if ($li.length == 1) {
-							let isSelected = $($target).find("option[value='" + value + "']").prop("selected");
-							if(!isSelected){
-								$li.removeClass("active");
-								$li.addClass("hide");
-							}else{
-								console.log("can't hide selected option !");
-							}
+                if (typeof value == "string" || typeof value == "number") {
+                    var $li = $($target).find("li[data-value='" + value + "']");
+                    if ($li.length == 1) {
+                        let isSelected = $($target).find("option[value='" + value + "']").prop("selected");
+                        if (!isSelected) {
+                            $li.removeClass("active");
+                            $li.addClass("hide");
+                        } else {
+                            console.log("can't hide selected option !");
                         }
                     }
-                    else {
-                        console.log("hideOption parameter should be either a string or a number");
-                    }
+                }
+                else {
+                    console.log("hideOption parameter should be either a string or a number");
+                }
             }
             return (factory);
         }
         else if (action == "showOption") {
-			let factory = this;
-			let $target = "#btn-group-" + $(this).attr("id");
-			if($($target).find("button").hasClass("disabled")) return;
+            let factory = this;
+            let $target = "#btn-group-" + $(this).attr("id");
+            if ($($target).find("button").hasClass("disabled")) return;
             if (options != undefined) {
                 var value = options;
                 if (typeof value == "string" || typeof value == "number") {
-                    var $li = $($target ).find("li[data-value='" + value + "']");
+                    var $li = $($target).find("li[data-value='" + value + "']");
                     if ($li.length == 1) {
                         $li.removeClass("hide");
                     }
@@ -366,13 +382,13 @@
         }
         else if (action == "disable") {
             isDisabled = true;
-			let $target = "#btn-group-" + $(this).attr("id");
+            let $target = "#btn-group-" + $(this).attr("id");
             $($target).find("button").addClass("disabled");
             return (this);
         }
         else if (action == "enable") {
             isDisabled = false;
-		let $target = "#btn-group-" + $(this).attr("id");
+            let $target = "#btn-group-" + $(this).attr("id");
             $($target).find("button").removeClass("disabled");
             return (this);
         }
