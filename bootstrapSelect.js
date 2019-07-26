@@ -1,7 +1,7 @@
 ﻿/* 
  Copyright (C) Philippe Meyer 2018-2019
  Distributed under the MIT License
- bootstrapSelect v 0.82 : with multiple choice, now uses the size attribute of the select tag : when the selected items are <= size they are listed all in the header
+ bootstrapSelect v 0.83 : with multiple choice, now uses the size attribute of the select tag : when the selected items are <= size they are listed all in the header
  when the list length > size it shows 'x items' to prevent the header to grow and mess with the UI !
  setValue action in multiple mode allows only to deselect every option
  https://github.com/PhilippeMarcMeyer/bootstrapSelect
@@ -184,12 +184,14 @@
 
             $(factory.title).html(selectedTexts);
 
-            $($drop).find("li").on("click", function () {
+            $($drop).find("li").on("click", function (event) {
                 let that = this;
+				
                 if (!factory.isDisabled) {
                     let text = $(that).attr("data-text");
                     let value = $(that).attr("data-value");
                     if (factory.isMultiple) {
+						event.stopPropagation();
                         if ($(that).hasClass("active")) {
                             $(that).removeClass("active");
                             $("#" + factory.factoryId + " option[value='" + value + "']").prop("selected", false);
