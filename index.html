@@ -117,7 +117,11 @@
 		  <option class="running" value="running">Running</option>
 		  <option class="walking" value="walking">Walking</option>
 		  <option class="soccer" value="soccer">Soccer</option>
-			<option value="tv">Watching TV</option>
+		  <option value="tv">Watching TV</option>
+		  <option value="gardening">Gardening</option>
+		  <option value="day-dreaming">Day-dreaming</option>
+		  <option value="Chating">Chating</option>
+
 		</select>
 	  </div>
 	    <br />
@@ -167,7 +171,7 @@
 			});
 				
 			$("#btnGo2").on("click",function(){
-				$("#multChoice").bootstrapSelect("init", { "colors": "off" ,"className":"bs-select","maxWidth":400});
+				$("#multChoice").bootstrapSelect("init", { "colors": "off" ,"className":"bs-select","maxWidth":400,"maxHeight":180});
 				$("#btnGo2").hide();
 				$("#btnHide").show();
 				$("#btnEmpty").show();

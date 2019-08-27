@@ -1,9 +1,7 @@
 ﻿/* 
  Copyright (C) Philippe Meyer 2018-2019
  Distributed under the MIT License
- bootstrapSelect v 0.83 : with multiple choice, now uses the size attribute of the select tag : when the selected items are <= size they are listed all in the header
- when the list length > size it shows 'x items' to prevent the header to grow and mess with the UI !
- setValue action in multiple mode allows only to deselect every option
+ bootstrapSelect v0.84 : Added new option => "maxHeigth": 150 (default is 400) to set a scrollbar for very long dropdowns 
  https://github.com/PhilippeMarcMeyer/bootstrapSelect
 */
 
@@ -19,6 +17,7 @@
             factory.width = 120;
             factory.className = "bs-select"; // general class
             factory.maxWidth = 500;
+			factory.maxHeight = 400;
             factory.isDisabled = false;
             factory.tooltip = null;
             factory.isMultiple = false;
@@ -53,6 +52,10 @@
 
             if (options.maxWidth != undefined) {
                 factory.maxWidth = options.maxWidth;
+            }
+			
+			 if (options.maxHeight != undefined) {
+                factory.maxHeight = options.maxHeight;
             }
             factory.isMultiple = $(factory).attr("multiple") ? true : false;
 
@@ -114,7 +117,8 @@
             $ul
 				.appendTo($drop)
 				.addClass("dropdown-menu")
-                .css({ "cursor": "pointer" });
+                .css({ "cursor": "pointer","max-height":factory.maxHeight+"px","overflow-y": "auto" });
+			
 
             if (factory.isMultiple) {
                 $ul.addClass("multi");

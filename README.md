@@ -1,4 +1,4 @@
-# bootstrapSelect v0.83
+# bootstrapSelect v0.84
 
 jQuery plugin "bootstrapSelect" which transform a select in a bootstrap dropdown with colors
 
@@ -8,6 +8,8 @@ Demo : https://philippemarcmeyer.github.io/bootstrapSelect/.
 
 Transform an HTML select into a bootstrap dropdown
 the select is hidden and the chosen value is also available in it as they are binded
+
+v0.84 : Added new option => "maxHeigth": 150 (default is 400) to set a scrollbar for very long dropdowns 
 
 v0.83 : in case of multiple choice, the menu stays open until outside click
 
