@@ -1,6 +1,6 @@
-# bootstrapSelect v0.84
+# bootstrapSelect v0.85
 
-jQuery plugin "bootstrapSelect" which transform a select in a bootstrap dropdown with colors
+jQuery plugin "bootstrapSelect" which transform a select in a bootstrap dropdown with colors and checkboxes...
 
 ![screen shot](https://raw.githubusercontent.com/PhilippeMarcMeyer/bootstrapSelect/master/demo.png)
 
@@ -8,6 +8,8 @@ Demo : https://philippemarcmeyer.github.io/bootstrapSelect/.
 
 Transform an HTML select into a bootstrap dropdown
 the select is hidden and the chosen value is also available in it as they are binded
+
+v0.85 : Added new option => "search": true (default is false) to show a search box
 
 v0.84 : Added new option => "maxHeigth": 150 (default is 400) to set a scrollbar for very long dropdowns 
 

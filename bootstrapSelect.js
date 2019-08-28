@@ -1,7 +1,7 @@
 ﻿/* 
  Copyright (C) Philippe Meyer 2018-2019
  Distributed under the MIT License
- bootstrapSelect v0.84 : Added new option => "maxHeigth": 150 (default is 400) to set a scrollbar for very long dropdowns 
+ bootstrapSelect v0.85 : Added new option => "search": true (default is false) to show a search box
  https://github.com/PhilippeMarcMeyer/bootstrapSelect
 */
 
@@ -17,13 +17,14 @@
             factory.width = 120;
             factory.className = "bs-select"; // general class
             factory.maxWidth = 500;
-			factory.maxHeight = 400;
+            factory.maxHeight = 400;
             factory.isDisabled = false;
             factory.tooltip = null;
             factory.isMultiple = false;
             factory.factoryId = $(this).attr("id");
             factory.marginLeft = "0px";
             factory.multipleSize = -1;
+            factory.search = false;
             factory.header; // button
             factory.title = null; // button title
             factory.translations = { "all": "All", "items": "items" };
@@ -53,8 +54,12 @@
             if (options.maxWidth != undefined) {
                 factory.maxWidth = options.maxWidth;
             }
-			
-			 if (options.maxHeight != undefined) {
+
+            if (options.search != undefined) {
+                factory.search = options.search;
+            }
+
+            if (options.maxHeight != undefined) {
                 factory.maxHeight = options.maxHeight;
             }
             factory.isMultiple = $(factory).attr("multiple") ? true : false;
@@ -117,8 +122,9 @@
             $ul
 				.appendTo($drop)
 				.addClass("dropdown-menu")
-                .css({ "cursor": "pointer","max-height":factory.maxHeight+"px","overflow-y": "auto" });
-			
+                .css({ "cursor": "pointer", "max-height": factory.maxHeight + "px", "overflow-y": "auto" });
+
+
 
             if (factory.isMultiple) {
                 $ul.addClass("multi");
@@ -128,6 +134,36 @@
             let sep = "";
             let nrActives = 0;
 
+            if (factory.search) {
+                var $div = $("<div></div>");
+                $div
+                    .addClass("bs-js-search-zone")
+					.css({ width: "100%", position: "absolute", "background-color": "white" });
+
+                var $input = $("<input/>");
+
+                $input
+                   .appendTo($div)
+                   .attr("type", "text")
+                   .attr("id", "search_" + factory.factoryId)
+                   .css({ "border": "1px solid grey", "margin-left": "2%", "width": "96%", "border-radius": "5px" });
+
+                $div
+					.appendTo($ul)
+                let fontSizeForBR = factory.isMultiple ? "24px" : "8px";
+                var $br = $("<br/>");
+                $br
+                    .appendTo($ul)
+                    .css({ "font-size": fontSizeForBR })
+
+                $ul.on("scroll", function () {
+                    let s = $(this).scrollTop();
+                    $("#search_" + factory.factoryId).parent().css("top", s+ "px");
+                });
+
+
+
+            }
             $(factory).find("option").each(function (i) {
 
                 var text = $(this).text();
@@ -187,15 +223,35 @@
             }
 
             $(factory.title).html(selectedTexts);
+            if (factory.search) {
+                $("#search_" + factory.factoryId).on("keyup", function () {
+                    let searchValue = $(this).val().toUpperCase();
+                    let searchValueLength = searchValue.length;
+                    if (searchValueLength < 2) {
+                        $($drop).find("li").each(function () {
+                            $(this).removeClass("hide");
+                        });
+                    } else {
+                        $($drop).find("li").each(function () {
+                            let text = $(this).attr("data-text").toUpperCase();
+                            if (text.indexOf(searchValue) == -1) {
+                                $(this).addClass("hide");
+                            } else {
+                                $(this).removeClass("hide");
+                            }
 
+                        });
+                    }
+                });
+            }
             $($drop).find("li").on("click", function (event) {
                 let that = this;
-				
+
                 if (!factory.isDisabled) {
                     let text = $(that).attr("data-text");
                     let value = $(that).attr("data-value");
                     if (factory.isMultiple) {
-						event.stopPropagation();
+                        event.stopPropagation();
                         if ($(that).hasClass("active")) {
                             $(that).removeClass("active");
                             $("#" + factory.factoryId + " option[value='" + value + "']").prop("selected", false);

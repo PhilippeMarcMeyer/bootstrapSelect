@@ -120,7 +120,9 @@
 		  <option value="tv">Watching TV</option>
 		  <option value="gardening">Gardening</option>
 		  <option value="day-dreaming">Day-dreaming</option>
-		  <option value="Chating">Chating</option>
+		  <option value="chating">Chating</option>
+		  <option value="writting">Writting</option>
+		  <option value="reading">Reading</option>
 
 		</select>
 	  </div>
@@ -171,7 +173,7 @@
 			});
 				
 			$("#btnGo2").on("click",function(){
-				$("#multChoice").bootstrapSelect("init", { "colors": "off" ,"className":"bs-select","maxWidth":400,"maxHeight":180});
+				$("#multChoice").bootstrapSelect("init", { "maxWidth":400,"maxHeight":180,"search":true});
 				$("#btnGo2").hide();
 				$("#btnHide").show();
 				$("#btnEmpty").show();
