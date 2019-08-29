@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <meta charset="utf-8">
+
+<head>
+    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <title>Demo</title>
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	
+
     <!-- external css -->
+  
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,500">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	
-	<link rel="stylesheet" href="./bootstrapSelect.css">
-	
-    <!-- internal css -->
-	<style>
-	
-	 body{
-		font-family: "Roboto,Helvetica Neue",Helvetica,Arial,sans-serif; 
-	 }
-	 
-	 #container{
-		 padding-top: 30px;
-		 padding-left:50px;
-		 width:90%;
-	 }
-	 
-	h5 {
-		color: #2e44b9;
-		font-weight: bold;
-		font-size: 24px;;
-	}
-	
-	.swimming{
-		color : #0000aa;
-	}
-	
-	.walking{
-		color : #00aa00;
-	}
-	
-	.running{
-		color : #aa0000;
-	}
-	
-	.soccer{
-		color : #aaaaff;
-		font-weight : bold;
-		text-decoration:underline;
-	}
-	
 
-	
-	</style>
-  </head>
-  <body>
+
+   
+    <link rel="stylesheet" href="./bootstrapSelect.css">
+
+    <!-- internal css -->
+    <style>
+        body {
+            font-family: "Roboto,Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        #container {
+            padding-top: 30px;
+            padding-left: 50px;
+            width: 90%;
+        }
+
+        h5 {
+            color: #2e44b9;
+            font-weight: bold;
+            font-size: 24px;
+            ;
+        }
+
+        .swimming {
+            color: #0000aa;
+        }
+
+        .walking {
+            color: #00aa00;
+        }
+
+        .running {
+            color: #aa0000;
+        }
+
+        .soccer {
+            color: #aaaaff;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
 
@@ -67,146 +69,161 @@
                 <div class="btn-group" style="margin-top: 8px;margin-right:10px;">
                 </div>
                 <a class="navbar-brand" href="#">
-					Experiments with jquery
+                    Experiments with jquery
                 </a>
             </div>
             <ul class="nav navbar-nav">
-				<li id="bootstrapSelect" class="active"><a href="#bootstrapSelect">BootstrapSelect</a></li>
+                <li id="bootstrapSelect" class="active"><a href="#bootstrapSelect">BootstrapSelect</a></li>
                 <li id="blog"><a href="https://philippemarcmeyer.github.io#jquery">Github Blog</a></li>
                 <li id="repos"><a href="https://github.com/PhilippeMarcMeyer/bootstrapSelect">Github repos</a></li>
             </ul>
         </div>
     </nav>
-  <div id="container">
-  
-	  
- <div id="bootstrapSelectZone" style="max-width:800px;width:800px;" >
-	  <h5 style="display:inline-block">bootstrapSelect</h5>
-	  <p>Transform an HTML select into a bootstrap dropdown</p>
-	  <p>the select is hidden and its value is updated on the fly</p>
-	  <p>In this demo i use a select with classes in the options I want to be coloured in the bootstrap dropdown</p>
-	  <p>You mays also use a data-color attribute instead, containing the colorcode : the set the "colors" option to "on"</p>
-	  <p>You can préselect options in the select : they will show in the BS dropdown</p>
+    <div id="container">
 
-	  <hr/>	
-	  <div>
-	  <label>What is you fav sport ?</label><br />
-	  <select id="choice">
-		  <option value=""></option>
-		  <option class="swimming" value="swimming">Swimming</option>
-		  <option class="running" value="running" selected="selected" >Running</option>
-		  <option class="walking" value="walking">Walking</option>
-		  <option class="soccer" value="soccer">Soccer</option>
-		  <option value="tv">Watching TV</option>
-	  </select>
-	   </div>
-	   <br />
-	   		<button type="button" id="btnGo1" class="btn btn-sm btn-default">bootstrap it!</button>
-			<button type="button" id="btnEmpty1" class="btn btn-sm btn-default">Empty selection</button>
 
-			<button type="button" id="btnSet1" class="btn btn-sm btn-default">SetValue("soccer")</button>
+        <div id="bootstrapSelectZone" style="max-width:800px;width:800px;">
+            <h5 style="display:inline-block">bootstrapSelect</h5>
+            <p>Transform an HTML select into a bootstrap dropdown</p>
+            <p>the select is hidden and its value is updated on the fly</p>
+            <p>In this demo i use a select with classes in the options I want to be coloured in the bootstrap dropdown
+            </p>
+            <p>You mays also use a data-color attribute instead, containing the colorcode : the set the "colors" option
+                to "on"</p>
+            <p>You can préselect options in the select : they will show in the BS dropdown</p>
 
-	  <hr/>	
+            <hr />
+            <div>
+                <label>What is you fav sport ?</label><br />
+                <select id="choice">
+                    <option value=""></option>
+                    <option class="swimming" value="swimming">Swimming</option>
+                    <option class="running" value="running" selected="selected">Running</option>
+                    <option class="walking" value="walking">Walking</option>
+                    <option class="soccer" value="soccer">Soccer</option>
+                    <option value="tv">Watching TV</option>
+                </select>
+            </div>
+            <br />
+            <button type="button" id="btnGo1" class="btn btn-sm btn-default">bootstrap it!</button>
+            <button type="button" id="btnEmpty1" class="btn btn-sm btn-default">Empty selection</button>
 
-	  <p>Now add a multiple attribute to the select (this time without colors) : </p>
+            <button type="button" id="btnSet1" class="btn btn-sm btn-default">SetValue("soccer")</button>
 
-	  <div>
-	  <label>Why choosing only one ?</label><br />
-		<select id="multChoice" size="3" multiple="">
-		  <option class="swimming" value="swimming">Swimming</option>
-		  <option class="running" value="running">Running</option>
-		  <option class="walking" value="walking">Walking</option>
-		  <option class="soccer" value="soccer">Soccer</option>
-		  <option value="tv">Watching TV</option>
-		  <option value="gardening">Gardening</option>
-		  <option value="day-dreaming">Day-dreaming</option>
-		  <option value="chating">Chating</option>
-		  <option value="writting">Writting</option>
-		  <option value="reading">Reading</option>
+            <hr />
 
-		</select>
-	  </div>
-	    <br />
-		<button type="button" id="btnGo2" class="btn btn-sm btn-default">bootstrap it!</button>
-		<hr />
-		<button type="button" id="btnHide" class="btn btn-sm btn-default">Hide Watching TV !</button>
-		<button type="button" id="btnShow" class="btn btn-sm btn-default">Show Watching TV ...</button>
-		<button type="button" id="btnEmpty" class="btn btn-sm btn-default">Empty selection</button>
-		<button type="button" id="btnDisable" class="btn btn-sm btn-default">Disable</button>
-		<button type="button" id="btnEnable" class="btn btn-sm btn-default">Enable</button>
-		<button type="button" id="btnSet2" class="btn btn-sm btn-default">SetValue("swimming,walking,soccer")</button>
+            <p>Now add a multiple attribute to the select (this time without colors) : </p>
 
-  </div>
-  
-  
+            <div>
+                <label>Why choosing only one ?</label><br />
+                <select id="multChoice" size="3" multiple="">
+                    <option class="swimming" value="swimming">Swimming</option>
+                    <option class="running" value="running">Running</option>
+                    <option class="walking" value="walking">Walking</option>
+                    <option class="soccer" value="soccer">Soccer</option>
+                    <option value="tv">Watching TV</option>
+                    <option value="gardening">Gardening</option>
+                    <option value="day-dreaming">Day-dreaming</option>
+                    <option value="chating">Chating</option>
+                    <option value="writting">Writting</option>
+                    <option value="reading">Reading</option>
+
+                </select>
+            </div>
+            <br />
+            <button type="button" id="btnGo2" class="btn btn-sm btn-default">bootstrap it!</button>
+            <hr />
+            <button type="button" id="btnHide" class="btn btn-sm btn-default">Hide Watching TV !</button>
+            <button type="button" id="btnShow" class="btn btn-sm btn-default">Show Watching TV ...</button>
+            <button type="button" id="btnEmpty" class="btn btn-sm btn-default">Empty selection</button>
+            <button type="button" id="btnDisable" class="btn btn-sm btn-default">Disable</button>
+            <button type="button" id="btnEnable" class="btn btn-sm btn-default">Enable</button>
+            <button type="button" id="btnSet2" class="btn btn-sm btn-default">SetValue("swimming,walking,soccer")</button>
+            <button type="button" id="btnDestroy" class="btn btn-sm btn-danger">Destroy</button>
+        </div>
+   
       <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
       <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+        <script src="./bootstrapSelect.js"></script>
 
-	  <script src="./bootstrapSelect.js"></script>
-	  
-	<script>  
-		$(document ).ready(function() {
-			$("#btnHide").hide();
-			$("#btnShow").hide();
-			$("#btnEmpty").hide();
-			$("#btnDisable").hide();
-			$("#btnEnable").hide();
-			$("#btnSet2").hide();
-			$("#btnSet1").hide();
-			$("#btnEmpty1").hide();
-			
-			$("#btnGo1").on("click",function(){
-				$("#choice").bootstrapSelect("init", {"maxWidth":400});
-				$("#btnGo1").hide();
-				$("#btnSet1").show();
-				$("#btnEmpty1").show();
-			});
-			
-			$("#btnEmpty1").on("click",function(){
-				$("#choice").bootstrapSelect("empty");
-			});	
-			
-			$("#btnSet1").on("click",function(){
-				$("#choice").bootstrapSelect("setValue","soccer");
-			});
-				
-			$("#btnGo2").on("click",function(){
-				$("#multChoice").bootstrapSelect("init", { "maxWidth":400,"maxHeight":180,"search":true});
-				$("#btnGo2").hide();
-				$("#btnHide").show();
-				$("#btnEmpty").show();
-				$("#btnDisable").show();
-				$("#btnSet2").show();
+        <script>
+            $(document).ready(function () {
+                $("#btnHide").hide();
+                $("#btnShow").hide();
+                $("#btnEmpty").hide();
+                $("#btnDisable").hide();
+                $("#btnEnable").hide();
+                $("#btnSet2").hide();
+                $("#btnSet1").hide();
+                $("#btnEmpty1").hide();
+                $("#btnDestroy").hide();
 
-			});	
-			$("#btnHide").on("click",function(){
-				$("#multChoice").bootstrapSelect("hideOption", "tv");
-				$("#btnHide").hide();
-				$("#btnShow").show();
-			});	
-			$("#btnShow").on("click",function(){
-				$("#multChoice").bootstrapSelect("showOption","tv");
-				$("#btnHide").show();
-				$("#btnShow").hide();
-			});	
-			$("#btnEmpty").on("click",function(){
-				$("#multChoice").bootstrapSelect("empty");
-			});	
-			$("#btnDisable").on("click",function(){
-				$("#multChoice").bootstrapSelect("disable");
-				$("#btnEnable").show();
-				$("#btnDisable").hide();
-			});	
-			$("#btnEnable").on("click",function(){
-				$("#multChoice").bootstrapSelect("enable");
-				$("#btnEnable").hide();
-				$("#btnDisable").show();
-			});	
-			$("#btnSet2").on("click",function(){
-				$("#multChoice").bootstrapSelect("setValue","swimming,walking,soccer");
-			});
-		});
-	 </script>  
+                $("#btnGo1").on("click", function () {
+                    $("#choice").bootstrapSelect("init", { "maxWidth": 400 });
+                    $("#btnGo1").hide();
+                    $("#btnSet1").show();
+                    $("#btnEmpty1").show();
+                });
+
+                $("#btnEmpty1").on("click", function () {
+                    $("#choice").bootstrapSelect("empty");
+                });
+
+                $("#btnSet1").on("click", function () {
+                    $("#choice").bootstrapSelect("setValue", "soccer");
+                });
+
+                $("#btnGo2").on("click", function () {
+                    $("#multChoice").bootstrapSelect("init", { "maxWidth": 400, "maxHeight": 180, "search": true });
+                    $("#btnGo2").hide();
+                    $("#btnHide").show();
+                    $("#btnEmpty").show();
+                    $("#btnDisable").show();
+                    $("#btnSet2").show();
+                    $("#btnDestroy").show();
+
+                });
+                $("#btnHide").on("click", function () {
+                    $("#multChoice").bootstrapSelect("hideOption", "tv");
+                    $("#btnHide").hide();
+                    $("#btnShow").show();
+                });
+                $("#btnShow").on("click", function () {
+                    $("#multChoice").bootstrapSelect("showOption", "tv");
+                    $("#btnHide").show();
+                    $("#btnShow").hide();
+                });
+                $("#btnEmpty").on("click", function () {
+                    $("#multChoice").bootstrapSelect("empty");
+                });
+                $("#btnDisable").on("click", function () {
+                    $("#multChoice").bootstrapSelect("disable");
+                    $("#btnEnable").show();
+                    $("#btnDisable").hide();
+                });
+                $("#btnEnable").on("click", function () {
+                    $("#multChoice").bootstrapSelect("enable");
+                    $("#btnEnable").hide();
+                    $("#btnDisable").show();
+                });
+                $("#btnSet2").on("click", function () {
+                    $("#multChoice").bootstrapSelect("setValue", "swimming,walking,soccer");
+                });
+
+                $("#btnDestroy").on("click", function () {
+                    $("#multChoice").bootstrapSelect("destroy");
+					$("#multChoice").show();
+					$("#btnGo2").show();
+                    $("#btnHide").hide();
+                    $("#btnEmpty").hide();
+                    $("#btnDisable").hide();
+                    $("#btnSet2").hide();
+                    $("#btnDestroy").hide();
+					 
+                });
+            });
+        </script>
+	</div>
 </html>

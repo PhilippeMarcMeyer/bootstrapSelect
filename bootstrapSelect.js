@@ -1,7 +1,7 @@
 ﻿/* 
  Copyright (C) Philippe Meyer 2018-2019
  Distributed under the MIT License
- bootstrapSelect v0.85 : Added new option => "search": true (default is false) to show a search box
+ bootstrapSelect v0.86 : Added new command => "destroy": to remove the bsSelect 
  https://github.com/PhilippeMarcMeyer/bootstrapSelect
 */
 
@@ -452,6 +452,14 @@
             isDisabled = false;
             let $target = "#btn-group-" + $(this).attr("id");
             $($target).find("button").removeClass("disabled");
+            return (this);
+        }
+		else if (action == "destroy") {
+            let $target = "#btn-group-" + $(this).attr("id");
+			$($target)
+				.remove();
+				
+				factory=null;
             return (this);
         }
         else {
