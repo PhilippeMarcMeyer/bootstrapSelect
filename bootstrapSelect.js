@@ -25,7 +25,7 @@
             factory.marginLeft = "0px";
             factory.multipleSize = -1;
             factory.search = false;
-			factory.placeHolder = "";
+            factory.placeHolder = "";
             factory.header; // button
             factory.title = null; // button title
             factory.translations = { "all": "All", "items": "items" };
@@ -59,11 +59,11 @@
             if (options.search != undefined) {
                 factory.search = options.search;
             }
-			
-			if (options.placeHolder != undefined) {
+
+            if (options.placeHolder != undefined) {
                 factory.placeHolder = options.placeHolder;
             }
-			
+
             if (options.maxHeight != undefined) {
                 factory.maxHeight = options.maxHeight;
             }
@@ -161,7 +161,7 @@
 
                 $ul.on("scroll", function () {
                     let s = $(this).scrollTop();
-                    $("#search_" + factory.factoryId).parent().css("top", s+ "px");
+                    $("#search_" + factory.factoryId).parent().css("top", s + "px");
                 });
 
 
@@ -212,7 +212,7 @@
                             .attr("class", "title " + className);
                     }
                 }
-				
+
 
                 if (factory.tooltip != null) {
                     $button.tooltip();
@@ -248,11 +248,11 @@
                     }
                 });
             }
-			
-			if(factory.placeHolder != "" && factory.title.text() == ""){
-				factory.title.html(factory.placeHolder)
-			}
-				
+
+            if (factory.placeHolder != "" && factory.title.text() == "") {
+                factory.title.html(factory.placeHolder)
+            }
+
             $($drop).find("li").on("click", function (event) {
                 let that = this;
 
@@ -321,10 +321,10 @@
                         $(factory).trigger("change");
                     }
                     // isMultiple
-					
-					if(factory.placeHolder != "" && factory.title.text() == ""){
-						factory.title.html(factory.placeHolder)
-					}
+
+                    if (factory.placeHolder != "" && factory.title.text() == "") {
+                        factory.title.html(factory.placeHolder)
+                    }
                 }
             });
             $ul.outerWidth($ul.outerWidth() + 30);
@@ -396,19 +396,21 @@
                 }
             });
             factory.isMultiple = $(factory).attr("multiple") ? true : false;
-            let testMultipleSize = $(factory).attr("size");
-            if (testMultipleSize != undefined) {
-                testMultipleSize = parseInt(testMultipleSize);
-                if (!isNaN(testMultipleSize) && testMultipleSize >= 1) {
-                    factory.multipleSize = testMultipleSize
+            if(factory.isMultiple){
+                let testMultipleSize = $(factory).attr("size");
+                if (testMultipleSize != undefined) {
+                    testMultipleSize = parseInt(testMultipleSize);
+                    if (!isNaN(testMultipleSize) && testMultipleSize >= 1) {
+                        factory.multipleSize = testMultipleSize
+                    }
                 }
-            }
-            if (nrActives == nrAll) {
-                let wordForAll = factory.translations.all || "all"
-                selectedTexts = wordForAll;
-            } else if (nrActives > factory.multipleSize) {
-                let wordForItems = factory.translations.items || "items"
-                selectedTexts = nrActives + " " + wordForItems;
+                if (nrActives == nrAll) {
+                    let wordForAll = factory.translations.all || "all"
+                    selectedTexts = wordForAll;
+                } else if (nrActives > factory.multipleSize) {
+                    let wordForItems = factory.translations.items || "items"
+                    selectedTexts = nrActives + " " + wordForItems;
+                }
             }
             $($target).find(".title").html(selectedTexts);
             return (this);
@@ -467,12 +469,12 @@
             $($target).find("button").removeClass("disabled");
             return (this);
         }
-		else if (action == "destroy") {
+        else if (action == "destroy") {
             let $target = "#btn-group-" + $(this).attr("id");
-			$($target)
+            $($target)
 				.remove();
-				
-				factory=null;
+
+            factory = null;
             return (this);
         }
         else {
