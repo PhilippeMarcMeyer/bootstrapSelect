@@ -1,7 +1,7 @@
 ﻿/* 
  Copyright (C) Philippe Meyer 2018-2019
  Distributed under the MIT License
- bootstrapSelect v0.86 : Added new command => "destroy": to remove the bsSelect 
+ bootstrapSelect v0.87 : Added new option => "placeHolder": to show when nothing is selected
  https://github.com/PhilippeMarcMeyer/bootstrapSelect
 */
 
@@ -25,6 +25,7 @@
             factory.marginLeft = "0px";
             factory.multipleSize = -1;
             factory.search = false;
+			factory.placeHolder = "";
             factory.header; // button
             factory.title = null; // button title
             factory.translations = { "all": "All", "items": "items" };
@@ -58,7 +59,11 @@
             if (options.search != undefined) {
                 factory.search = options.search;
             }
-
+			
+			if (options.placeHolder != undefined) {
+                factory.placeHolder = options.placeHolder;
+            }
+			
             if (options.maxHeight != undefined) {
                 factory.maxHeight = options.maxHeight;
             }
@@ -123,8 +128,6 @@
 				.appendTo($drop)
 				.addClass("dropdown-menu")
                 .css({ "cursor": "pointer", "max-height": factory.maxHeight + "px", "overflow-y": "auto" });
-
-
 
             if (factory.isMultiple) {
                 $ul.addClass("multi");
@@ -209,6 +212,7 @@
                             .attr("class", "title " + className);
                     }
                 }
+				
 
                 if (factory.tooltip != null) {
                     $button.tooltip();
@@ -244,6 +248,11 @@
                     }
                 });
             }
+			
+			if(factory.placeHolder != "" && factory.title.text() == ""){
+				factory.title.html(factory.placeHolder)
+			}
+				
             $($drop).find("li").on("click", function (event) {
                 let that = this;
 
@@ -312,6 +321,10 @@
                         $(factory).trigger("change");
                     }
                     // isMultiple
+					
+					if(factory.placeHolder != "" && factory.title.text() == ""){
+						factory.title.html(factory.placeHolder)
+					}
                 }
             });
             $ul.outerWidth($ul.outerWidth() + 30);

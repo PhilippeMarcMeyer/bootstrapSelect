@@ -1,6 +1,8 @@
-# bootstrapSelect v0.86
+# bootstrapSelect v0.87
 
-jQuery plugin "bootstrapSelect" which transform a select in a bootstrap dropdown with colors and checkboxes...
+jQuery plugin "bootstrapSelect" which transform a select element in a bootstrap dropdown with colors, search field 
+If the multiple attribute is provided in the select element then you get css checkboxes...
+
 
 ![screen shot](https://raw.githubusercontent.com/PhilippeMarcMeyer/bootstrapSelect/master/demo.png)
 
@@ -8,6 +10,8 @@ Demo : https://philippemarcmeyer.github.io/bootstrapSelect/.
 
 Transform an HTML select into a bootstrap dropdown
 the select is hidden and the chosen value is also available in it as they are binded
+
+v0.87 : Added new option => "placeHolder": to show when nothing is selected
 
 v0.86 : Added new command => "destroy": to remove the bsSelect 
 
