@@ -153,18 +153,17 @@
 
                 $div
 					.appendTo($ul)
-                let fontSizeForBR = factory.isMultiple ? "24px" : "8px";
-                var $br = $("<br/>");
-                $br
+                let fontSizeForP = factory.isMultiple ? "16px" : "8px";
+                var $para = $("<p></p>");
+                $para
                     .appendTo($ul)
-                    .css({ "font-size": fontSizeForBR })
+                    .css({ "font-size": fontSizeForP })
+                    .html("&nbsp;");
 
                 $ul.on("scroll", function () {
                     let s = $(this).scrollTop();
                     $("#search_" + factory.factoryId).parent().css("top", s + "px");
                 });
-
-
 
             }
             $(factory).find("option").each(function (i) {
