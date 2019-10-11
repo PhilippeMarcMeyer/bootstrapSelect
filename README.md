@@ -4,12 +4,14 @@ jQuery plugin "bootstrapSelect" which transform a select element in a bootstrap 
 If the multiple attribute is provided in the select element then you get css checkboxes...
 
 
-![screen shot](https://raw.githubusercontent.com/PhilippeMarcMeyer/bootstrapSelect/master/demo.png)
+![screen shot](https://raw.githubusercontent.com/PhilippeMarcMeyer/bootstrapSelect/master/BootstrapSelectDemo.jpg)
 
 Demo : https://philippemarcmeyer.github.io/bootstrapSelect/.
 
 Transform an HTML select into a bootstrap dropdown
 the select is hidden and the chosen value is also available in it as they are binded
+
+v0.88 : Changed check marks design
 
 v0.87 : Added new option => "placeHolder": to show when nothing is selected
 
