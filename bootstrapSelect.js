@@ -1,7 +1,7 @@
 ﻿/* 
  Copyright (C) Philippe Meyer 2018-2019
  Distributed under the MIT License
- bootstrapSelect v0.87 : Added new option => "placeHolder": to show when nothing is selected
+ bootstrapSelect v0.88 : Changed check marks design
  https://github.com/PhilippeMarcMeyer/bootstrapSelect
 */
 
@@ -153,7 +153,7 @@
 
                 $div
 					.appendTo($ul)
-                let fontSizeForP = factory.isMultiple ? "16px" : "8px";
+                let fontSizeForP = factory.isMultiple ? "18px" : "16px";
                 var $para = $("<p></p>");
                 $para
                     .appendTo($ul)
@@ -242,10 +242,15 @@
                             } else {
                                 $(this).removeClass("hide");
                             }
-
                         });
                     }
                 });
+				$("body").on("click",function(){
+					$(".bs-js-search-zone input").val("");
+					$($drop).find("li").each(function () {
+                        $(this).removeClass("hide");
+                    });
+				});
             }
 
             if (factory.placeHolder != "" && factory.title.text() == "") {

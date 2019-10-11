@@ -6,23 +6,36 @@
 	font-size: 14px;
 	background-color: #fff;
 	min-height:1.4em;
-	padding: 0.2em 2em 0.2em 1em;
-}
-
-.bs-select :not(.multi) li.active {
-    background: linear-gradient(#e5e5e5, #d8d8d8);
-}
-
-.bs-js-search-zone{
-    padding:4px;
-    z-index:1001;
+	padding: 0.2em 2em 0.2em 2em;
 }
 
 .bs-select .multi li {
 	font-size: 14px;
 	background-color: #fff;
 	min-height:1.4em;
-	padding: 0.2em 2em 0.2em 26px;
+	padding: 0.2em 2em 0.2em 2.4em;
+}
+
+.bs-select :not(.multi) li.active::before {
+	  content: "";
+	  display: inline-block;
+	  font-size: inherit;
+	  float:left;
+	  margin-left:-16px;
+	  display: inline-block;
+	  transform: rotate(45deg);
+      margin-top:4px;
+	  height: 10px;
+	  width:  7px;
+	  border-bottom:  3px solid black;
+	  border-right:  3px solid black;
+	  border-radius: 2px;
+}
+
+
+.bs-js-search-zone{
+    padding:4px;
+    z-index:1001;
 }
 
 
@@ -32,11 +45,11 @@
   font-size: inherit;
   float:left;
   font-weight:bold;
-  margin-left:-18px;
+  margin-left:-1.6em;
   margin-right:2px;
   border : 1px solid;
   border-radius : 3px;
-  padding : 6px;
+  padding : 7px;
   margin-top:3px;
   color:black;
 }
@@ -46,13 +59,14 @@
     display: inline-block;
     font-size: inherit;
     float: left;
-    font-weight: bold;
-    border: 1px solid;
-    padding: 3px;
-    background-color: black;
-    margin-left: -15px;
-    margin-top: 6px;
+	transform: rotate(45deg);
+    margin-left: -1.2em;
+    margin-top:5px;
+	height: 10px;
+	width:  5px;
     color: black;
+	border-bottom: 3px solid black;
+	border-right:  3px solid black;
 }
 
 
@@ -79,26 +93,26 @@
     border-radius:0;
 }
 
-ul.dropdown-menu.multi::-webkit-scrollbar-track
+ul.dropdown-menu::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
 
-ul.dropdown-menu.multi::-webkit-scrollbar
+ul.dropdown-menu::-webkit-scrollbar
 {
 	width: 12px;
 	background-color: #F5F5F5;
 }
 
-ul.dropdown-menu.multi::-webkit-scrollbar-thumb
+ul.dropdown-menu::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #999;
 }
 
-ul.dropdown-menu.multi::-webkit-scrollbar-thumb:hover {
+ul.dropdown-menu::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
