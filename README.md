@@ -1,4 +1,4 @@
-# bootstrapSelect v0.87
+# bootstrapSelect v0.88
 
 jQuery plugin "bootstrapSelect" which transform a select element in a bootstrap dropdown with colors, search field 
 If the multiple attribute is provided in the select element then you get css checkboxes...
